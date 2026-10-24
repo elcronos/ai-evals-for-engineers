@@ -1,0 +1,45 @@
+# Glossary
+
+Every term is also explained in the module where it first appears. Terms are in alphabetical order.
+
+| Term | Meaning in this course |
+|---|---|
+| <a id="accuracy"></a>**Accuracy** | The share of all verdicts a judge gets right. Misleading when one outcome is rare: see [why not accuracy](06-measuring-a-judge.md#why-not-accuracy) and [Pitfall 5](10-pitfalls.md#pitfall-5). |
+| <a id="alias"></a>**Alias** | A model name the provider can repoint to a newer snapshot, such as a dateless or `-latest` name. See [pinned snapshots and floating aliases](appendix-b-drift-and-retirement.md#pin-vs-alias). |
+| <a id="benevolent-dictator"></a>**Benevolent dictator** | The single lead domain expert whose pass or fail judgement is final; Hamel Husain's term. Preferred over a panel of labellers because it gives consistent labels and one expert's time is easier to get. See [Module 3](03-define-and-collect.md#step-1) and [Module 4](04-error-analysis.md#labelling). |
+| <a id="calibration"></a>**Calibration** | Checking, and if needed correcting, whether a model's scores match reality: whether outputs scored 0.9 are right about 90% of the time. Matters only when you act on a numeric score. See [Module 8](08-scores-and-thresholds.md#raw-score). |
+| <a id="class-imbalance"></a>**Class imbalance** | When one outcome (usually failure) is much rarer than the other. It makes accuracy misleading and random samples short of failures. See [Module 7](07-validate-judges.md). |
+| <a id="classifier"></a>**Classifier** | Any model that assigns an input to one of a fixed set of labels, for example PASS or FAIL. LLM judges, decision models and pre-trained models are all used as classifiers. |
+| <a id="confidence-interval"></a>**Confidence interval** | A range of plausible values for a true rate, given how few examples you measured. Report one with every metric. |
+| <a id="confusion-matrix"></a>**Confusion matrix** | A table counting the four ways a judge can be right or wrong: true and false positives, true and false negatives. See [Module 6](06-measuring-a-judge.md#confusion-matrix). |
+| <a id="decision-model"></a>**Decision model** | A small, fast model that returns a typed verdict with a probability, such as "true, 0.87", instead of free text. See [Module 6](06-measuring-a-judge.md#decision-models). |
+| <a id="deprecation"></a>**Deprecation**, **retirement** | *Deprecation*: the provider announces that a model version will go away and stops recommending it. *Retirement* (or shutdown, end of life): calls to it stop working. The provider sets the date; your team chooses the replacement. |
+| <a id="splits"></a>**Dev set**, **test set**, **few-shot pool** | The three stratified splits of the labelled pool. *Few-shot pool*: examples you may paste into the judge prompt. *Dev set*: where you iterate on the prompt and, for scores, tune the threshold and fit calibration. *Test set*: used once to report TPR and TNR. See [Module 5](05-build-checks.md#splits). |
+| <a id="drift"></a>**Drift** | A sustained change, after you evaluated the system, in the conditions it runs under. Kinds: data, concept, criteria, upstream, model and judge. See [Appendix B](appendix-b-drift-and-retirement.md#drift). |
+| <a id="error-analysis"></a>**Error analysis** | Reading real traces with a domain expert to find, name and count the ways your system fails. See [Module 4](04-error-analysis.md). |
+| <a id="evaluation"></a>**Eval** (evaluation) | Any systematic way of measuring how good a model's or agent's output is. Broader than a test: an eval can use code checks, models or humans as graders. |
+| <a id="f1"></a>**F1** | A single number combining precision and recall (their harmonic mean) that is high only when both are high. See [Module 6](06-measuring-a-judge.md#f1). |
+| <a id="failure-mode"></a>**Failure mode** | A named, specific way your system goes wrong, such as "cites an outdated policy". You build one check or judge per failure mode. |
+| <a id="faithfulness"></a>**Faithfulness** | In [RAG](#rag), whether an answer says only what its retrieved sources support, with no added claims. An answer can be faithful and still wrong if the sources are wrong. See [Module 1](01-why-evals.md#why-evals). |
+| <a id="few-shot"></a>**Few-shot**, **zero-shot** | *Zero-shot*: a model used as-is on a task, with no worked examples in the prompt. *Few-shot*: a few worked examples are included in the prompt. Neither removes the need for labelled data to validate the model. See [zero-shot](06-measuring-a-judge.md#zero-shot). For how few-shot examples are chosen and kept apart from the dev and test sets, with an example prompt, see [the few-shot pool](07-validate-judges.md#few-shot-pool). |
+| <a id="golden-dataset"></a>**Golden dataset** | The expert-labelled pool: rows of input, output, a pass or fail label per failure mode, and a reason. The labelled rows test your judges; the inputs also feed the [regression set](#regression-set). Not a "golden file" from snapshot testing. See [Module 5](05-build-checks.md#labelled-pool). |
+| <a id="grader"></a>**Grader** | Whatever decides pass or fail on one output. Three kinds: code, model and human. See [Module 2](02-graders.md). |
+| <a id="ground-truth"></a>**Ground truth**, **label** | The expert's verdict on an example, treated as the correct answer. |
+| <a id="guardrail"></a>**Guardrail** | A classifier at the input or output boundary of an LLM system that blocks, denies or redacts, for example blocking a jailbreak attempt. Same machinery as an eval, different action. See [Module 2](02-graders.md#evals-guardrails-routing). |
+| <a id="judge"></a>**Judge**, **LLM-as-judge** | A grader that is itself a model, most often an LLM prompted with a description of what to check. Its verdicts must be tested against expert labels. |
+| <a id="logit"></a>**Logit** | A raw, unbounded number a classifier produces internally before it is converted to a score between 0 and 1. |
+| <a id="non-deterministic"></a>**Non-deterministic** | Can give different outputs for the same input. Hosted LLMs often are, even at the lowest temperature. Deterministic does not mean correct. |
+| <a id="offline-online"></a>**Offline eval**, **online eval** | *Offline*: run against a fixed dataset, for example in CI. *Online*: run against a sample of live production traffic. You need both. |
+| <a id="overfitting"></a>**Overfitting** | Tuning something until it looks perfect on examples it has seen, so that it fails on new ones. Prevented by a held-out test set. |
+| <a id="precision-recall"></a>**Precision**, **recall** | *Precision*: when a judge flags a problem, how often it is right. *Recall*: of the real problems, how many it catches. See [Module 6](06-measuring-a-judge.md#confusion-matrix). |
+| <a id="rag"></a>**RAG** | Retrieval-augmented generation: search your documents, paste the best matches into the prompt, then ask the model to answer from them. |
+| <a id="red-teaming"></a>**Red teaming** | Deliberately attacking your own system (prompt injection, jailbreaks, tool misuse) to find weaknesses. See [Module 9](09-run-and-monitor.md#step-6). |
+| <a id="regression-set"></a>**Regression set** | Inputs you re-run on every change, and on a schedule, to check the system did not get worse: the golden dataset's inputs plus hand-written edge cases. The new outputs are scored by code checks and validated judges, not by the old labels. See [Module 5](05-build-checks.md#label-describes-output). |
+| <a id="rubric"></a>**Rubric** | A criterion broken into several small yes/no questions, each judged on its own. See [Pitfall 1](10-pitfalls.md#pitfall-1). |
+| <a id="snapshot"></a>**Snapshot** (pinned version) | A fixed model version ID, such as `gpt-4o-2024-08-06`. |
+| <a id="temperature"></a>**Temperature** | A setting that controls how random an LLM's output is. Lower is less random, but hosted LLMs can still vary at the lowest setting, and some models do not let you set it. |
+| <a id="threshold"></a>**Threshold** | The cut-off that turns a numeric score into a verdict. A business decision, not a default. See [Module 8](08-scores-and-thresholds.md#threshold). |
+| <a id="tpr"></a>**TPR** (true positive rate) | With "positive" meaning a good output: the share of genuinely good outputs the judge passes. See [Module 6](06-measuring-a-judge.md#tpr-tnr). |
+| <a id="tnr"></a>**TNR** (true negative rate) | The share of genuinely bad outputs the judge catches. See [Module 6](06-measuring-a-judge.md#tpr-tnr). |
+| <a id="trace"></a>**Trace**, **span**, **session** | A *trace* is the full record of one request through your system, as a tree of *spans* (one per step: an LLM call, a retrieval, a tool call). A *session* groups the traces of one conversation. |
+| <a id="weights"></a>**Training**, **weights** | A model's behaviour is produced by *training*: automatically adjusting millions or billions of numbers (the *weights*) until its outputs fit a large set of examples. You cannot read its rules, so you test its behaviour. |

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 530" font-family="DM Sans, Arial, sans-serif" role="img" aria-label="Two calibration charts. Top: a well-calibrated model whose bars sit on the dashed diagonal (11, 29, 48, 68 and 87 percent). Bottom: an overconfident model whose bars fall below the diagonal at high confidence; in the 80 to 100 percent confidence bucket it is right only 58 percent of the time."><rect width="380" height="530" fill="#fff"/><text x="190" y="16" text-anchor="middle" font-size="16" font-weight="700" fill="#0f7a55">Well calibrated</text>
+<line x1="70" y1="30" x2="70" y2="200" stroke="#555"/><line x1="70" y1="200" x2="350" y2="200" stroke="#555"/>
+<line x1="70" y1="200.0" x2="350" y2="200.0" stroke="#ddd" stroke-width="0.7"/><text x="64" y="204.0" text-anchor="end" font-size="12" fill="#333">0%</text>
+<line x1="70" y1="166.0" x2="350" y2="166.0" stroke="#ddd" stroke-width="0.7"/><text x="64" y="170.0" text-anchor="end" font-size="12" fill="#333">20%</text>
+<line x1="70" y1="132.0" x2="350" y2="132.0" stroke="#ddd" stroke-width="0.7"/><text x="64" y="136.0" text-anchor="end" font-size="12" fill="#333">40%</text>
+<line x1="70" y1="98.0" x2="350" y2="98.0" stroke="#ddd" stroke-width="0.7"/><text x="64" y="102.0" text-anchor="end" font-size="12" fill="#333">60%</text>
+<line x1="70" y1="64.0" x2="350" y2="64.0" stroke="#ddd" stroke-width="0.7"/><text x="64" y="68.0" text-anchor="end" font-size="12" fill="#333">80%</text>
+<line x1="70" y1="30.0" x2="350" y2="30.0" stroke="#ddd" stroke-width="0.7"/><text x="64" y="34.0" text-anchor="end" font-size="12" fill="#333">100%</text>
+<line x1="70" y1="200" x2="350" y2="30" stroke="#5b3fd1" stroke-width="2" stroke-dasharray="7,4"/>
+<rect x="78" y="181.3" width="38" height="18.7" rx="2" fill="#0f7a55"/>
+<text x="97" y="176.3" text-anchor="middle" font-size="12" font-weight="700" fill="#111">11%</text>
+<text x="97" y="216" text-anchor="middle" font-size="12" fill="#333">0-20</text>
+<rect x="132" y="150.7" width="38" height="49.3" rx="2" fill="#0f7a55"/>
+<text x="151" y="145.7" text-anchor="middle" font-size="12" font-weight="700" fill="#111">29%</text>
+<text x="151" y="216" text-anchor="middle" font-size="12" fill="#333">20-40</text>
+<rect x="186" y="118.4" width="38" height="81.6" rx="2" fill="#0f7a55"/>
+<text x="205" y="113.4" text-anchor="middle" font-size="12" font-weight="700" fill="#111">48%</text>
+<text x="205" y="216" text-anchor="middle" font-size="12" fill="#333">40-60</text>
+<rect x="240" y="84.4" width="38" height="115.6" rx="2" fill="#0f7a55"/>
+<text x="259" y="79.4" text-anchor="middle" font-size="12" font-weight="700" fill="#111">68%</text>
+<text x="259" y="216" text-anchor="middle" font-size="12" fill="#333">60-80</text>
+<rect x="294" y="52.099999999999994" width="38" height="147.9" rx="2" fill="#0f7a55"/>
+<text x="313" y="47.099999999999994" text-anchor="middle" font-size="12" font-weight="700" fill="#111">87%</text>
+<text x="313" y="216" text-anchor="middle" font-size="12" fill="#333">80-100</text>
+<text x="210" y="236" text-anchor="middle" font-size="13" fill="#333">Confidence the model reported (%)</text>
+<text x="18" y="115.0" font-size="13" fill="#333" transform="rotate(-90 18 115.0)" text-anchor="middle">How often it was right</text><text x="190" y="276" text-anchor="middle" font-size="16" font-weight="700" fill="#c0392b">Overconfident</text>
+<line x1="70" y1="290" x2="70" y2="460" stroke="#555"/><line x1="70" y1="460" x2="350" y2="460" stroke="#555"/>
+<line x1="70" y1="460.0" x2="350" y2="460.0" stroke="#ddd" stroke-width="0.7"/><text x="64" y="464.0" text-anchor="end" font-size="12" fill="#333">0%</text>
+<line x1="70" y1="426.0" x2="350" y2="426.0" stroke="#ddd" stroke-width="0.7"/><text x="64" y="430.0" text-anchor="end" font-size="12" fill="#333">20%</text>
+<line x1="70" y1="392.0" x2="350" y2="392.0" stroke="#ddd" stroke-width="0.7"/><text x="64" y="396.0" text-anchor="end" font-size="12" fill="#333">40%</text>
+<line x1="70" y1="358.0" x2="350" y2="358.0" stroke="#ddd" stroke-width="0.7"/><text x="64" y="362.0" text-anchor="end" font-size="12" fill="#333">60%</text>
+<line x1="70" y1="324.0" x2="350" y2="324.0" stroke="#ddd" stroke-width="0.7"/><text x="64" y="328.0" text-anchor="end" font-size="12" fill="#333">80%</text>
+<line x1="70" y1="290.0" x2="350" y2="290.0" stroke="#ddd" stroke-width="0.7"/><text x="64" y="294.0" text-anchor="end" font-size="12" fill="#333">100%</text>
+<line x1="70" y1="460" x2="350" y2="290" stroke="#5b3fd1" stroke-width="2" stroke-dasharray="7,4"/>
+<rect x="78" y="439.6" width="38" height="20.4" rx="2" fill="#c0392b"/>
+<text x="97" y="434.6" text-anchor="middle" font-size="12" font-weight="700" fill="#111">12%</text>
+<text x="97" y="476" text-anchor="middle" font-size="12" fill="#333">0-20</text>
+<rect x="132" y="412.4" width="38" height="47.6" rx="2" fill="#c0392b"/>
+<text x="151" y="407.4" text-anchor="middle" font-size="12" font-weight="700" fill="#111">28%</text>
+<text x="151" y="476" text-anchor="middle" font-size="12" fill="#333">20-40</text>
+<rect x="186" y="386.9" width="38" height="73.1" rx="2" fill="#c0392b"/>
+<text x="205" y="381.9" text-anchor="middle" font-size="12" font-weight="700" fill="#111">43%</text>
+<text x="205" y="476" text-anchor="middle" font-size="12" fill="#333">40-60</text>
+<rect x="240" y="371.6" width="38" height="88.4" rx="2" fill="#c0392b"/>
+<text x="259" y="366.6" text-anchor="middle" font-size="12" font-weight="700" fill="#111">52%</text>
+<text x="259" y="476" text-anchor="middle" font-size="12" fill="#333">60-80</text>
+<g stroke="#b3261e" stroke-width="2"><line x1="286" y1="341.0" x2="286" y2="371.6"/><line x1="282" y1="341.0" x2="290" y2="341.0"/><line x1="282" y1="371.6" x2="290" y2="371.6"/></g>
+<rect x="294" y="361.4" width="38" height="98.6" rx="2" fill="#c0392b"/>
+<text x="313" y="356.4" text-anchor="middle" font-size="12" font-weight="700" fill="#111">58%</text>
+<text x="313" y="476" text-anchor="middle" font-size="12" fill="#333">80-100</text>
+<g stroke="#b3261e" stroke-width="2"><line x1="340" y1="307.0" x2="340" y2="361.4"/><line x1="336" y1="307.0" x2="344" y2="307.0"/><line x1="336" y1="361.4" x2="344" y2="361.4"/></g>
+<text x="210" y="496" text-anchor="middle" font-size="13" fill="#333">Confidence the model reported (%)</text>
+<text x="18" y="375.0" font-size="13" fill="#333" transform="rotate(-90 18 375.0)" text-anchor="middle">How often it was right</text></svg>

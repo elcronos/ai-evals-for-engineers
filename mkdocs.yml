@@ -1,0 +1,79 @@
+site_name: AI Evals for Engineers
+site_description: A practical course on evaluating LLM applications and agents, for software engineers new to AI evals.
+site_author: Camilo Pestana
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.footer
+    - navigation.top
+    - navigation.indexes
+    - toc.follow
+    - search.highlight
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+extra_css:
+  - stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+nav:
+  - Welcome: index.md
+  - Part 1. Foundations:
+      - 1. Why evals?: 01-why-evals.md
+      - 2. Graders: 02-graders.md
+  - Part 2. Building evals:
+      - 3. Define what matters and collect data: 03-define-and-collect.md
+      - 4. Error analysis: 04-error-analysis.md
+      - 5. Build your first checks: 05-build-checks.md
+  - Part 3. Trusting your judge:
+      - 6. Measuring a judge: 06-measuring-a-judge.md
+      - 7. Validate your judges: 07-validate-judges.md
+      - 8. Scores, calibration and thresholds: 08-scores-and-thresholds.md
+  - Part 4. Running evals for real:
+      - 9. Run, monitor and re-run: 09-run-and-monitor.md
+      - 10. Common pitfalls: 10-pitfalls.md
+  - Part 5. Putting it into practice:
+      - 11. Tools: 11-tools.md
+      - 12. Your first eval project: 12-first-project.md
+  - Appendices (optional):
+      - A. Model migration playbook: appendix-a-model-migration.md
+      - B. Drift and model retirement: appendix-b-drift-and-retirement.md
+  - Glossary: glossary.md
+  - References: references.md
+
+validation:
+  links:
+    anchors: warn

@@ -1,0 +1,10 @@
+.eval-pass { color: #1a7f37; font-weight: 600; }
+.eval-fail { color: #cf222e; font-weight: 600; }
+.eval-warn { color: #9a6700; font-weight: 600; }
+
+[data-md-color-scheme="slate"] .eval-pass { color: #3fb950; }
+[data-md-color-scheme="slate"] .eval-fail { color: #f85149; }
+[data-md-color-scheme="slate"] .eval-warn { color: #d29922; }
+
+.md-typeset table:not([class]) { font-size: 0.72rem; }
+.md-typeset .admonition.abstract, .md-typeset details.abstract { font-size: 0.75rem; }
