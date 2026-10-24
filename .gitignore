@@ -1,3 +1,4 @@
 .omc/
 .venv/
 site/
+.vercel
