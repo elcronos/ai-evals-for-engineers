@@ -26,8 +26,7 @@ Two rules keep this honest:
 - **Treat each question as its own failure mode:** validate each one against human labels ([Module 7](07-validate-judges.md)). The passes-divided-by-total number is only a summary and is never validated on its own.
 - **Never use the summary as the release gate.** A reply that passes 4 of 5 can still fail the one question you cannot accept (here, promising an exception). Gate on the individual critical questions and use the summary to explore and compare versions.
 
-![Slide: Try to use binary scores. A Likert-scale judge outputs a vague 3 out of 5, while actionable evals split into separate binary pass/fail checks such as is_polite, scheduling and human_handoff.](assets/slide_26.png)
-*From Hamel Husain, [The Revenge of the Data Scientist](https://hamel.dev/blog/posts/revenge/). A single vague "3/5" versus separate pass/fail checks you can act on.*
+Hamel Husain's talk [The Revenge of the Data Scientist](https://hamel.dev/blog/posts/revenge/) makes the same point: a single vague "3/5" versus separate pass/fail checks, such as `is_polite` and `human_handoff`, that you can act on.
 
 ## Pitfall 2: Trusting the judge without auditing it for bias { #pitfall-2 }
 
@@ -76,11 +75,8 @@ Two separate traps:
 
 LLMs are excellent at helping you *build* eval tooling: writing the harness, drafting judge prompts, summarising clusters of failures, generating candidate inputs. The pitfall is letting them do the part that defines what "good" is. Hamel Husain's *The Revenge of the Data Scientist* lists "bad data and labels" and "automating too much" among its five main pitfalls.
 
-![Slide: bad data and labels. A meme of an AI team cycling along until outsourcing the labelling to developers causes a crash.](assets/slide_27.png)
-*Bad data and labels. If the people labelling lack the domain knowledge, every metric built on their labels inherits their mistakes. This is why the lead domain expert labels, not whoever is free. From Hamel Husain, [The Revenge of the Data Scientist](https://hamel.dev/blog/posts/revenge/).*
-
-![Slide: Not yet. Someone types "Claude - find all errors. Make no mistakes." into a computer.](assets/slide_33.png)
-*Automating too much: "find all errors" gives the model no definition of an error and no ground truth, so it measures nothing in particular. From Hamel Husain, [The Revenge of the Data Scientist](https://hamel.dev/blog/posts/revenge/).*
+- **Bad data and labels.** If the people labelling lack the domain knowledge, every metric built on their labels inherits their mistakes. This is why the lead domain expert labels, not whoever is free.
+- **Automating too much.** Asking a model to "find all errors, make no mistakes" gives it no definition of an error and no ground truth, so it measures nothing in particular.
 
 The takeaway: **use LLMs to speed up the work, and keep a person responsible for deciding what a failure is and for checking that the automation agrees with them.** That is why validating judges against human labels is not optional. The post lists more pitfalls (misusing similarity scores, vague judge questions such as "is this helpful?", dashboards with little signal); read [the full post](https://hamel.dev/blog/posts/revenge/) for each.
 

@@ -7,7 +7,7 @@ Many of the ideas in this course follow their writing.
 - Hamel Husain, [AI Evals: Everything You Need to Know](https://hamel.dev/blog/posts/evals-faq/). A good first read after this course.
 - Hamel Husain, [Your AI Product Needs Evals](https://hamel.dev/blog/posts/evals/) and [A Field Guide to Rapidly Improving AI Products](https://hamel.dev/blog/posts/field-guide/).
 - Hamel Husain, [Using LLM-as-a-Judge For Evaluation: A Complete Guide](https://hamel.dev/blog/posts/llm-judge/).
-- Hamel Husain, [The Revenge of the Data Scientist](https://hamel.dev/blog/posts/revenge/) (source of the slides in [Module 10](10-pitfalls.md)).
+- Hamel Husain, [The Revenge of the Data Scientist](https://hamel.dev/blog/posts/revenge/) (source of several pitfalls in [Module 10](10-pitfalls.md)).
 - Hamel Husain and Antaripa Saha, [How To Use Decision Models for Evals](https://hamel.dev/blog/posts/decision-model-evals/).
 - Hamel Husain, [Selecting The Right AI Evals Tool](https://hamel.dev/blog/posts/eval-tools/).
 - Hamel Husain and Shreya Shankar, [How are evaluations used differently in CI/CD vs. monitoring production?](https://hamel.dev/blog/posts/evals-faq/how-are-evaluations-used-differently-in-cicd-vs-monitoring-production.html).
