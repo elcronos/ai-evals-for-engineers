@@ -101,27 +101,34 @@ So the pool has two uses:
 - **The labelled rows (input, output, label) test the judge.** The judge reads the stored output, and you compare its verdict with the expert's label. The output never changes, so the label stays true.
 - **The inputs re-run through the system form the regression set.** Each run produces new outputs, which nobody has labelled, so your **code checks and validated judges** score them. Add hand-written edge cases too: inputs you expect to be hard, even if you have not seen them fail yet.
 
+Read the diagram from the top. The golden dataset splits into two separate uses, each a column of numbered steps. The **"Test the judge"** column uses the labelled rows. The **"Test the system"** column uses only the inputs. The one arrow between the columns is the link: the judge you validated in "Test the judge" scores the new outputs in "Test the system".
+
+```mermaid
+flowchart TB
+    POOL["<b>Golden dataset</b><br/>each row: input + output + expert label"]
+    subgraph USE1["Test the judge: is it right? (labelled rows)"]
+        direction TB
+        J1["1. The judge reads the <b>stored</b> output"] --> J2["2. Compare its verdict<br/>with the expert's label"]
+        J2 --> J3["3. Validated judge<br/>(full procedure in Module 7)"]
+    end
+    subgraph USE2["Test the system: did it get worse? (inputs only)"]
+        direction TB
+        R1["1. Regression set:<br/>the inputs + hand-written edge cases"] --> R2["2. Run the current system"]
+        R2 --> R3["3. <b>New</b> outputs<br/>(nobody has labelled them)"]
+        R3 --> R4["4. Score with code checks<br/>and the validated judge"]
+    end
+    POOL --> USE1
+    POOL --> USE2
+    J3 -->|"the validated judge does the scoring"| R4
+```
+
+New production traces keep both columns up to date: see [Keep the pool alive](#keep-pool-alive) below.
+
 That is why the golden dataset and the regression set overlap but are not the same thing: same inputs, different jobs. It is also why you need both. A green regression run is only as trustworthy as the judge that scored it, and the golden dataset is how you know the judge is trustworthy.
 
 Do not expect every regression input to pass. Inputs whose failures you have not fixed yet are **capability cases**: track them, but do not gate on them. Once fixed, they become regression cases that must keep passing ([Pitfall 5](10-pitfalls.md#pitfall-5)). So compare each run with the last release input by input, not against 100%.
 
 Some data *does* carry over to new outputs: anything that describes the correct answer for an input rather than a particular reply, such as the current policy text or the document IDs that should be retrieved. Store these alongside the input; reference-based checks use them on every run.
-
-```mermaid
-flowchart TD
-    EA["Traces from error analysis"] --> POOL["Golden dataset: input + output + expert label + reason"]
-    POOL --> V["Split and validate the judge (Module 7)"]
-    V --> JUDGE["Validated judge"]
-    POOL -->|"inputs only"| REG["Regression set"]
-    EDGE["Hand-written edge cases"] --> REG
-    REG --> RUN["Run the current system"]
-    RUN --> NEW["New outputs"]
-    NEW --> SCORE["Score with code checks and validated judges"]
-    JUDGE --> SCORE
-    PROD["Live production traces"] --> SAMPLE["Fresh sample labelled by the expert"]
-    SAMPLE -->|"re-check the judge; add to the pool"| POOL
-    SAMPLE -->|"inputs of new failures"| REG
-```
 
 ### Keep the pool alive { #keep-pool-alive }
 
