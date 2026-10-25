@@ -62,14 +62,22 @@ This is not just theory. On the τ-bench benchmark of customer-service agents, g
 **Not the same as a "pass-all rate".** Husain and Shankar's FAQ suggests combining checks into a "pass all" rate: an example passes only if it passes **every check** (every failure mode) on one output. pass^k asks whether one check passes on **every run** of the same input. Both say "everything must pass", but along different axes, and you can use both.
 
 ??? note "For the curious: computing pass@k and pass^k from your runs"
-    Run each input n times (n at least k) and count the c runs that pass. Then, for that input, with C(a, b) meaning "the number of ways to choose b items from a":
+    **Run each input n times** (a few more than k, so the estimate is less noisy) and count the **c** runs that pass. Then, for that input:
 
-    - pass@k = 1 minus C(n minus c, k) / C(n, k)
-    - pass^k = C(c, k) / C(n, k)
+    | Metric | Formula | In plain words |
+    |---|---|---|
+    | pass^k | C(c, k) / C(n, k) | If you pick k of your n runs at random, the chance that **all** of them passed |
+    | pass@k | 1 - C(n - c, k) / C(n, k) | The chance that **at least one** of them passed (they did not all fail) |
 
-    In words: pass^k is the chance that k runs picked at random from your n all passed; pass@k is the chance that they did not all fail. **Compute this per input, then average across inputs.** Working out one overall pass rate first and then raising it to the power k gives a different, misleading answer.
+    C(a, b) is the number of ways to choose b items from a. In Python it is `math.comb(a, b)`.
 
-    *Example:* n = 10 runs, c = 9 passes, k = 3 gives pass^3 = C(9, 3) / C(10, 3) = 84 / 120 = 0.70. That is a little below 0.9 × 0.9 × 0.9 = 0.729, because it picks 3 different runs from your 10 without putting any back, which matches what you actually ran. Raising the observed 0.9 to the power 3 tends to overstate pass^k.
+    *Example.* One input, run 10 times: 9 pass, 1 fails. Take k = 3.
+
+    - There are C(10, 3) = 120 ways to pick 3 of the 10 runs.
+    - C(9, 3) = 84 of those picks contain only passing runs, so **pass^3 = 84 / 120 = 0.70**.
+    - Only one run failed, so every pick of 3 contains a pass: **pass@3 = 1**.
+
+    **Then average the per-input results across all your inputs.** Do not work out one overall pass rate and raise it to the power k: inputs differ in difficulty, so that gives a different, misleading number.
 
     ```python
     from math import comb
@@ -81,7 +89,7 @@ This is not just theory. On the τ-bench benchmark of customer-service agents, g
         return comb(c, k) / comb(n, k)
     ```
 
-    Sources: pass@k was introduced by Kulal et al. (2019) and made popular by Chen et al. (2021), who gave the pass@k formula above. They ran 200 samples per problem, because computing pass@k from exactly k runs is very noisy, and showed that plugging a measured pass rate into 1 minus (1 minus p) to the power k is biased. pass^k, and its formula, come from Yao et al. (2024), the τ-bench paper. Both are listed in the [references](references.md).
+    Sources: pass@k comes from Kulal et al. (2019) and Chen et al. (2021); pass^k from Yao et al. (2024), the τ-bench paper. See the [references](references.md).
 
 **Done when:** a failing check blocks (or at least visibly flags) a release, and someone owns the response.
 
