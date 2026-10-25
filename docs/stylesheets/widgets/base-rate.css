@@ -1,38 +1,50 @@
-/* Precision in production (Module 6, base rate). Base .ew-* styles live in core.css. */
+/* Why precision drops in production (Module 6). Base .ew-* styles live in core.css. */
 
-.md-typeset .ew-widget[data-widget="base-rate"] .ew-br-subhead {
-  margin: 0.6em 0 0.2em;
-  font-size: 0.72rem;
-  font-weight: 600;
+.md-typeset .ew-widget[data-widget="base-rate"] .ew-br-fixed {
+  margin: 0 0 0.6em;
   color: var(--md-default-fg-color--light);
 }
 
-.md-typeset .ew-widget[data-widget="base-rate"] .ew-br-sentence {
-  margin: 0.4em 0;
-  font-weight: 600;
+.md-typeset .ew-widget[data-widget="base-rate"] .ew-br-field label {
+  display: block;
+  margin-bottom: 0.2em;
 }
 
-.md-typeset .ew-widget[data-widget="base-rate"] .ew-field input[type="range"] {
+.md-typeset .ew-widget[data-widget="base-rate"] .ew-br-field input[type="range"] {
   width: 100%;
+  max-width: 32rem;
   accent-color: var(--md-accent-fg-color);
 }
 
-/* The rate slider deserves the full row. */
-.md-typeset .ew-widget[data-widget="base-rate"] .ew-br-rate {
-  grid-template-columns: 1fr;
+.md-typeset .ew-widget[data-widget="base-rate"] .ew-br-result {
+  margin: 0.8em 0 0.4em;
+}
+
+.md-typeset .ew-widget[data-widget="base-rate"] .ew-br-big {
+  margin: 0;
+  font-size: 1.4em;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.md-typeset .ew-widget[data-widget="base-rate"] .ew-br-words {
+  margin: 0.1em 0 0;
+}
+
+.md-typeset .ew-widget[data-widget="base-rate"] .ew-br-caption {
+  margin: 0.8em 0 0.2em;
+  color: var(--md-default-fg-color--light);
 }
 
 .md-typeset .ew-widget[data-widget="base-rate"] .ew-chart svg {
   display: block;
   width: 100%;
   height: auto;
-  max-width: 40rem;
+  max-width: 32rem;
 }
 
 .ew-widget[data-widget="base-rate"] .ew-br-real {
   fill: var(--md-primary-fg-color);
-  stroke: var(--md-primary-fg-color);
-  stroke-width: 1.5;
 }
 
 .ew-widget[data-widget="base-rate"] .ew-br-fa {
@@ -42,26 +54,28 @@
   stroke-dasharray: 5, 3;
 }
 
-.ew-widget[data-widget="base-rate"] .ew-br-empty {
-  fill: none;
-  stroke: var(--md-default-fg-color--lighter);
-  stroke-width: 1.5;
+.ew-widget[data-widget="base-rate"] .ew-br-label {
+  font-size: 15px;
+  font-weight: 600;
 }
 
-.ew-widget[data-widget="base-rate"] .ew-br-label {
-  fill: var(--md-default-fg-color);
-  font-size: 13px;
-  font-weight: 600;
+.ew-widget[data-widget="base-rate"] .ew-br-label-real {
+  fill: var(--md-primary-fg-color);
+}
+
+.ew-widget[data-widget="base-rate"] .ew-br-label-fa {
+  fill: var(--ew-neg, #cf222e);
 }
 
 /* Indigo primary is dark on the slate background; lift it for contrast. */
 [data-md-color-scheme="slate"] .ew-widget[data-widget="base-rate"] .ew-br-real {
   fill: var(--md-typeset-a-color);
-  stroke: var(--md-typeset-a-color);
+}
+[data-md-color-scheme="slate"] .ew-widget[data-widget="base-rate"] .ew-br-label-real {
+  fill: var(--md-typeset-a-color);
 }
 
-/* Phones: the 600-unit bar shrinks to about half size, so enlarge its two
-   labels (they still fit side by side within the 580-unit bar). */
+/* Phones: the 600-unit bar shrinks, so enlarge its two labels. */
 @media screen and (max-width: 30em) {
-  .ew-widget[data-widget="base-rate"] .ew-br-label { font-size: 17px; }
+  .ew-widget[data-widget="base-rate"] .ew-br-label { font-size: 22px; }
 }

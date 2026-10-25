@@ -220,14 +220,14 @@ TPR uses the left branch: TP / (TP + FN). TNR uses the right branch: TN / (TN + 
 - Calculate precision again at the production failure rate.
 - Measure precision on a random sample of production traces.
 
-??? example "Try it yourself: precision in production"
-    Keep the judge the same and change how common failures are. TPR and TNR stay fixed; precision does not.
+??? example "Try it yourself: why precision drops in production"
+    The judge stays the same. Only the share of bad outputs changes. Move the slider and watch how many of the judge's flags are real problems.
 
-    **Try this:** press 1% and read the precision. About 19 of every 20 flags are now false alarms, although the judge has not changed.
+    **Try this:** press "Golden dataset (40%)", then "Production (5%)".
 
     <div class="ew-widget" data-widget="base-rate" markdown>
 
-    Interactive base-rate calculator (needs JavaScript). The Module 6 PR judge has precision 77.8% on the golden set, where 40% of PRs have bugs. At a 5% failure rate, the same judge would have a precision of about 22%.
+    Interactive example (needs JavaScript). With 40% bad outputs, as in the golden dataset, about 78% of this judge's flags are real problems. With 5% bad outputs, as in production, only about 22% are.
 
     </div>
 
