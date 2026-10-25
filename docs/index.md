@@ -69,10 +69,6 @@ Each module starts with what you will learn and ends with key takeaways and a fe
 
 Most examples in the course use one system: a **customer-support agent that answers billing and refund questions**. The course calls it **the refund agent**. It searches a set of policy documents, looks up orders with a tool, and replies to the customer. The refund policy allows refunds within 30 days of purchase. An older version of the policy allowed 60 days, and that old document is still in the search index. You will see that detail cause trouble more than once.
 
-Anywhere in the course, hover over (or tap) the words *refund agent* to see this summary, or follow the link at the first mention in each module to come back here.
-
-Part 3 also uses a second, simpler example to teach the metrics: a judge that reviews 100 pull requests (PRs) and flags the ones with bugs.
-
 ## A note on numbers
 
 Numbers such as "about 100 traces", targets, margins and timings are **illustrations, not requirements**. The right values depend on how critical your system is, what could go wrong, how much traffic it has and what resources you have. A low-risk internal tool may need far less than this course describes; a system that handles money or safety may need more.
