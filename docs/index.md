@@ -42,7 +42,7 @@ The course has five parts and two optional appendices. Read Parts 1 to 3 in orde
 | **Part 3. Trusting your judge** | The hardest part of the course: [what to focus on](06-measuring-a-judge.md#part-3-note) | |
 | [6. Measuring a judge](06-measuring-a-judge.md) | Kinds of model-based grader, the confusion matrix, TPR and TNR | 15 min |
 | [7. Validate your judges](07-validate-judges.md) | The procedure for testing a judge against expert labels | 10 min |
-| [8. Scores, calibration and thresholds](08-scores-and-thresholds.md) | When a score is a probability, and how to pick a cut-off | 5 min |
+| [8. Scores, calibration and thresholds](08-scores-and-thresholds.md) | When a score is a probability, and how to pick a cut-off | 10 min |
 | **Part 4. Running evals for real** | | |
 | [9. Run, monitor and re-run](09-run-and-monitor.md) | CI, release gates, production monitoring and drift | 15 min |
 | [10. Common pitfalls](10-pitfalls.md) | Six mistakes that make an eval suite mislead | 10 min |
