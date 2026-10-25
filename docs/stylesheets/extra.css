@@ -8,3 +8,62 @@
 
 .md-typeset table:not([class]) { font-size: 0.72rem; }
 .md-typeset .admonition.abstract, .md-typeset details.abstract { font-size: 0.75rem; }
+
+/* Code blocks as a dark editor window (both themes), One Dark colours. */
+.md-typeset .highlight {
+  --md-code-bg-color: #282c34;
+  --md-code-fg-color: #abb2bf;
+  --md-code-hl-color: rgba(255, 255, 255, 0.08);
+  --md-code-hl-keyword-color: #c678dd;
+  --md-code-hl-string-color: #98c379;
+  --md-code-hl-comment-color: #7f848e;
+  --md-code-hl-function-color: #56b6c2;
+  --md-code-hl-name-color: #61afef;
+  --md-code-hl-variable-color: #e06c75;
+  --md-code-hl-constant-color: #e5c07b;
+  --md-code-hl-number-color: #d19a66;
+  --md-code-hl-operator-color: #abb2bf;
+  --md-code-hl-punctuation-color: #abb2bf;
+  --md-code-hl-special-color: #e06c75;
+  --md-code-hl-generic-color: #7f848e;
+  position: relative;
+  margin: 1.2em 0;
+  padding-top: 2.4em;
+  background: #282c34;
+  border-radius: 10px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+
+/* The three window dots. */
+.md-typeset .highlight::before {
+  content: "";
+  position: absolute;
+  top: 0.9em;
+  left: 1.3em;
+  width: 0.75em;
+  height: 0.75em;
+  border-radius: 50%;
+  background: #ff5f56;
+  box-shadow: 1.25em 0 0 #ffbd2e, 2.5em 0 0 #27c93f;
+}
+
+.md-typeset .highlight pre {
+  margin: 0;
+}
+
+.md-typeset .highlight pre > code {
+  padding: 0.5em 1.4em 1.2em;
+  background: transparent;
+  border-radius: 0;
+  line-height: 1.6;
+}
+
+.md-typeset .highlight .md-clipboard {
+  color: #7f848e;
+}
+
+.md-typeset .highlight .md-clipboard:hover,
+.md-typeset .highlight .md-clipboard:focus {
+  color: #abb2bf;
+}
