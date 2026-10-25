@@ -66,10 +66,23 @@
       recall: safeRatio(c.tp, BUGS.length),
       falseAlarmRate: safeRatio(c.fp, CLEAN.length),
       precision: safeRatio(c.tp, flagged),
+      // F1 = 2PR / (P + R), written as 2TP / (2TP + FP + FN): the same value,
+      // and defined even when nothing is flagged (it is then 0).
+      f1: safeRatio(2 * c.tp, 2 * c.tp + c.fp + c.fn),
       // TPR/TNR view, positive = good output (clean PR).
       tpr: safeRatio(c.tn, CLEAN.length),
       tnr: safeRatio(c.tp, BUGS.length)
     };
+  }
+
+  // Threshold with the highest F1 on this data (first one if tied).
+  function bestF1() {
+    var best = { t: DEFAULT_T, f1: -1 };
+    for (var t = T_MIN; t <= T_MAX; t++) {
+      var f = metrics(t).f1;
+      if (f !== null && f > best.f1) best = { t: t, f1: f };
+    }
+    return best;
   }
 
   function formatThreshold(t) {
@@ -134,6 +147,7 @@
     toHundredths: toHundredths,
     counts: counts,
     metrics: metrics,
+    bestF1: bestF1,
     formatThreshold: formatThreshold,
     summarySentence: summarySentence,
     parseThreshold: parseThreshold,
@@ -286,6 +300,12 @@
       presets.appendChild(b);
       return { t: p.t, btn: b };
     });
+    var best = bestF1();
+    var bestBtn = el("button", { type: "button", "class": "ew-btn", "aria-pressed": "false" },
+      "Best F1 (" + formatThreshold(best.t) + ")");
+    bestBtn.addEventListener("click", function () { setT(best.t, true); });
+    presets.appendChild(bestBtn);
+    presetBtns.push({ t: best.t, btn: bestBtn });
     host.appendChild(presets);
 
     var err = el("p", { "class": "ew-error", role: "status", id: id + "-err" }, "");
@@ -328,6 +348,7 @@
     var mRecall = metricRow(dl, "Recall (bugs caught)");
     var mFar = metricRow(dl, "False-alarm rate");
     var mPrec = metricRow(dl, "Precision");
+    var mF1 = metricRow(dl, "F1 (balance of precision and recall)");
     out.appendChild(dl);
 
     out.appendChild(el("p", { "class": "ew-th-subhead" }, "TPR/TNR view (positive = good output)"));
@@ -372,6 +393,10 @@
         mPrec.val.textContent = pct(m.precision);
         mPrec.read.textContent = c.tp + " of " + m.flagged + " flagged PRs";
       }
+      mF1.val.textContent = pct(m.f1);
+      mF1.read.textContent = t === best.t
+        ? "The highest F1 on this data"
+        : "Highest on this data: " + pct(best.f1) + " at " + formatThreshold(best.t);
       mTpr.val.textContent = pct(m.tpr);
       mTpr.read.textContent = c.tn + " of 60 clean PRs passed (1 minus false-alarm rate)";
       mTnr.val.textContent = pct(m.tnr);

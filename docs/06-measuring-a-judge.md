@@ -166,7 +166,9 @@ The authors note that results change across tasks and datasets. For this reason,
 
 **The first row.** The first row shows a judge that flags almost nothing. When it flags, it is right. But it catches only 2 bugs in 100. A normal average gives 51%. F1 gives approximately 4% (2 × 1.0 × 0.02 / 1.02), which is the honest answer.
 
-**Why it matters:** with F1, you cannot hide a judge that misses half the problems behind high precision. If one type of mistake costs more than the other type, use a weighted version instead ([F-beta, Module 8](08-scores-and-thresholds.md#recipe)).
+**Why it matters:** with F1, you cannot hide a judge that misses half the problems behind high precision.
+
+**When to use F1.** Use F1 when missed problems and false alarms matter about equally, or when you do not know yet which matters more. For this reason, F1 is the most common single score in ML for a balance between precision and recall. If one type of mistake clearly costs more than the other type, use a weighted version instead ([F-beta, Module 8](08-scores-and-thresholds.md#recipe)).
 
 ### TPR and TNR { #tpr-tnr }
 

@@ -72,11 +72,13 @@ The figures below are illustrative. They use the pull-request example from [Modu
 
 The TPR/TNR convention uses the opposite direction: positive means a good output. In that convention, the recall of bugs is the TNR. The false-alarm rate is 1 minus the TPR. Thus the 0.5 row has a TNR of 87.5% and a TPR of 83.3%.
 
-| Threshold | Bugs caught (recall) | False-alarm rate | Best when |
-|---|---|---|---|
-| **0.3** (low) | <span class="eval-pass">95%</span> | <span class="eval-fail">30%</span> | "Never miss a real bug": safety-critical systems, compliance |
-| **0.5** (default) | <span class="eval-warn">87.5%</span> | <span class="eval-warn">16.7%</span> | Balanced default, not optimised for either direction |
-| **0.7** (high) | <span class="eval-fail">60%</span> | <span class="eval-pass">5%</span> | "Only flag when very sure": low-noise settings, user-facing alerts |
+| Threshold | Bugs caught (recall) | False-alarm rate | F1 | Best when |
+|---|---|---|---|---|
+| **0.3** (low) | <span class="eval-pass">95%</span> | <span class="eval-fail">30%</span> | 79.2% | "Never miss a real bug": safety-critical systems, compliance |
+| **0.5** (default) | <span class="eval-warn">87.5%</span> | <span class="eval-warn">16.7%</span> | **82.4%** | Balanced default, not optimised for either direction |
+| **0.7** (high) | <span class="eval-fail">60%</span> | <span class="eval-pass">5%</span> | 71.6% | "Only flag when very sure": low-noise settings, user-facing alerts |
+
+The F1 column uses the 40 bugs and 60 clean PRs of the example. For instance, at 0.3 the judge catches 38 bugs and raises 18 false alarms, so precision is 38 / 56 = 67.9%.
 
 The diagram below shows the trade-off in the table. Follow each arrow. When you decrease the threshold, recall and the false-alarm rate both increase or stay the same. You cannot get more caught bugs without the risk of more false alarms.
 
@@ -91,17 +93,19 @@ flowchart LR
 ??? example "Try it yourself: move the threshold"
     Drag the threshold over 100 illustrative PR scores and watch recall and false alarms move together.
 
-    **Try this:** find the lowest threshold that keeps the false-alarm rate under 10%. How much recall do you give up compared with 0.5?
+    **Try this:** find the lowest threshold that keeps the false-alarm rate under 10%. How much recall do you give up compared with 0.5? Then press "Best F1" to see the threshold that balances precision and recall.
 
     <div class="ew-widget" data-widget="threshold" markdown>
 
-    Interactive threshold explorer (needs JavaScript). At 0.3: recall 95%, false alarms 30%. At 0.5: 87.5% and 16.7%. At 0.7: 60% and 5%.
+    Interactive threshold explorer (needs JavaScript). At 0.3: recall 95%, false alarms 30%, F1 79.2%. At 0.5: 87.5%, 16.7% and 82.4%. At 0.7: 60%, 5% and 71.6%. On this data, F1 is highest (83.3%) at 0.51.
 
     </div>
 
 Thresholds apply to all graders and models that return a numeric score. Examples are ML classifiers, decision models and G-Eval in its default, non-strict mode (see [Module 11](11-tools.md)). A pure PASS/FAIL LLM judge has no threshold to tune. Tune its prompt instead.
 
 The correct row is not a technical decision. It depends on which costs your business more: a missed problem or a false alarm. For this reason, **the product owner decides**. The product owner uses the measurements that you supply.
+
+**When both mistakes matter about equally.** Sometimes nobody can say which mistake costs more, or both cost about the same. In this case, the usual choice in ML is the threshold with the highest **F1** ([Module 6](06-measuring-a-judge.md#f1)). F1 is high only when precision and recall are both high, so this threshold gives a balance between them. In the table, 0.5 has the highest F1 of the three rows. When one mistake clearly costs more, use F-beta instead (see the recipe below).
 
 ### A practical recipe { #recipe }
 
@@ -118,7 +122,7 @@ Hamel Husain and Antaripa Saha wrote a post about decision models. The post give
 
     With this method, one lucky split does not decide the result. Then confirm the chosen threshold one time on your test set.
 
-3. **Choose a metric that matches your costs.** F-beta is F1 with a weighting control. With beta = 2, recall (missed failures) counts more than precision (false alarms). With beta = 0.5, precision counts more than recall. Choose beta to match your costs. Do not use F1 (beta = 1) automatically.
+3. **Choose a metric that matches your costs.** If missed failures and false alarms cost about the same, or you do not know yet, use **F1**. It is the usual balanced choice. If one costs more, use **F-beta**. F-beta is F1 with a weighting control. With beta = 2, recall (missed failures) counts more than precision (false alarms). With beta = 0.5, precision counts more than recall. Make the choice on purpose, from your costs.
 
 4. If you use scores as confidences, check calibration. Test whether Platt scaling actually helps. Fit Platt scaling on the dev set too.
 
@@ -131,6 +135,7 @@ Hamel Husain and Antaripa Saha wrote a post about decision models. The post give
 - **A score between 0 and 1 is not automatically a probability.** Check calibration before you act on the score as a probability.
 - To test calibration, **put predictions into buckets by confidence**. Then compare each bucket with how often the model was right.
 - The **threshold** sets the trade-off between missed problems and false alarms. It is a **business decision**. Do not accept 0.5 automatically as the default.
+- When both mistakes matter about equally, choose the threshold with the **highest F1**. When one costs more, use **F-beta**.
 - **Tune thresholds and fit calibration on the dev set** (with cross-validation). Then confirm one time on the test set.
 - PASS/FAIL judges have no threshold or probability. Validate them with TPR and TNR.
 

@@ -69,7 +69,7 @@ Short-circuit at Tier 1 whenever you can. If a text-to-SQL response fails to par
 
 Two separate traps:
 
-- **Accuracy hides a broken judge.** If only 5% of production traces fail, a judge that stamps every output "pass" scores 95% accuracy while catching **none** of the real failures (its TNR is 0%). Always report TPR and TNR, or precision and recall on the failure class.
+- **Accuracy hides a broken judge.** If only 5% of production traces fail, a judge that stamps every output "pass" scores 95% accuracy while catching **none** of the real failures (its TNR is 0%). Always report TPR and TNR, or precision and recall on the failure class. If you need one number, F1 on the failure class also shows the problem: it is 0 here, because the judge catches no failures.
 - **A 100% pass rate on your test suite is a warning, not a win.**
 
 !!! danger "The vanity suite trap"
