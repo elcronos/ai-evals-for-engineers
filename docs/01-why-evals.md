@@ -9,7 +9,7 @@ If you build with LLMs, your first instinct is to write tests. That instinct is 
 
 ## Why LLM outputs are hard to evaluate { #why-hard }
 
-Traditional code is deterministic: the same input gives the same output, and a test can state exactly what that output must be. LLM responses, in the words of Shankar and Husain quoted on the [welcome page](index.md), are "subjective, context-dependent, and multifaceted". Evaluation is also different from traditional machine learning, where each example usually has one correct label (spam or not spam) to compare against. An LLM reply has many acceptable forms, so before you can score it you must decide what "good" means.
+Traditional code is deterministic: the same input gives the same output, and a test can state exactly what that output must be. LLM responses, in the words of Shankar and Husain quoted on the [welcome page](index.md), are "subjective, context-dependent, and multifaceted". An LLM reply has many acceptable forms, so before you can score it you must decide what "good" means. Once you have, the tools for measuring quality are not new: labelled examples, held-out test sets, precision and recall, calibration and error analysis all come from data science and machine learning engineering. This course applies those foundations to LLM outputs.
 
 Each of the three ambiguities in that quote points to a different way of checking. Here they are for the course's refund agent:
 

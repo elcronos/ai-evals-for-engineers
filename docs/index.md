@@ -4,7 +4,7 @@
 
 *By Camilo Pestana. Last updated 24 October 2026.*
 
-> Unlike traditional software with deterministic outputs, LLM pipelines produce responses that are often subjective, context-dependent, and multifaceted. A response might be factually accurate yet inappropriate for the context. It might sound persuasive while conveying incorrect information. It might also address most but not all parts of the user’s question. These ambiguities make evaluation fundamentally different from conventional software testing or even traditional machine learning validation.
+> Unlike traditional software with deterministic outputs, LLM pipelines produce responses that are often subjective, context-dependent, and multifaceted. A response might be factually accurate yet inappropriate for the context. It might sound persuasive while conveying incorrect information. It might also address most but not all parts of the user’s question. These ambiguities make evaluation fundamentally different from conventional software testing.
 >
 > Shreya Shankar and Hamel Husain, *Evals for AI Engineers* (O'Reilly, 2026)
 
