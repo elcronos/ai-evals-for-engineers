@@ -31,6 +31,7 @@ Every term is also explained in the module where it first appears. Terms are in 
 | <a id="non-deterministic"></a>**Non-deterministic** | Can give different outputs for the same input. Hosted LLMs often are, even at the lowest temperature. Deterministic does not mean correct. |
 | <a id="offline-online"></a>**Offline eval**, **online eval** | *Offline*: run against a fixed dataset, for example in CI. *Online*: run against a sample of live production traffic. You need both. |
 | <a id="overfitting"></a>**Overfitting** | Tuning something until it looks perfect on examples it has seen, so that it fails on new ones. Prevented by a held-out test set. |
+| <a id="pass-at-k"></a>**pass@k**, **pass^k** | Two ways to summarise k runs of the same input when the system varies between runs. *pass@k*: at least one run passes (can it do this at all?). *pass^k*: every run passes (does it do this every time?). See [Module 9](09-run-and-monitor.md#repeated-runs). |
 | <a id="precision-recall"></a>**Precision**, **recall** | *Precision*: when a judge flags a problem, how often it is right. *Recall*: of the real problems, how many it catches. See [Module 6](06-measuring-a-judge.md#confusion-matrix). |
 | <a id="rag"></a>**RAG** | Retrieval-augmented generation: search your documents, paste the best matches into the prompt, then ask the model to answer from them. |
 | <a id="red-teaming"></a>**Red teaming** | Deliberately attacking your own system (prompt injection, jailbreaks, tool misuse) to find weaknesses. See [Module 9](09-run-and-monitor.md#step-6). |

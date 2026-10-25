@@ -29,6 +29,8 @@ Many of the ideas in this course follow their writing.
 - Tian et al., [Just Ask for Calibration: Strategies for Eliciting Calibrated Confidence Scores from Language Models Fine-Tuned with Human Feedback](https://arxiv.org/abs/2305.14975).
 - D. Sculley et al., [Hidden Technical Debt in Machine Learning Systems](https://proceedings.neurips.cc/paper_files/paper/2015/file/86df7dcfd896fcaf2674f757a2463eba-Paper.pdf) (NeurIPS 2015; source of "Changing Anything Changes Everything").
 - João Gama et al., [A Survey on Concept Drift Adaptation](https://dl.acm.org/doi/10.1145/2523813) (ACM Computing Surveys, 2014).
+- Mark Chen et al., [Evaluating Large Language Models Trained on Code](https://arxiv.org/abs/2107.03374) (2021; the Codex and HumanEval paper, which made pass@k popular and gives its unbiased estimator. It credits Kulal et al., 2019, with introducing pass@k).
+- Shunyu Yao et al., [τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains](https://arxiv.org/abs/2406.12045) (2024; source of pass^k).
 - Lingjiao Chen, Matei Zaharia and James Zou, [How is ChatGPT's behavior changing over time?](https://arxiv.org/abs/2307.09009) (figures quoted from the current version of the paper).
 
 ## Drift and production monitoring
@@ -60,7 +62,7 @@ Checked 24 October 2026; these pages change.
 
 ## Other guidance and documentation
 
-- Anthropic, [Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents).
+- Anthropic, [Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) (see its section on non-determinism for pass@k and pass^k).
 - Eugene Yan, [Task-specific LLM evals that do and don't work](https://eugeneyan.com/writing/evals/).
 - [OpenTelemetry GenAI semantic conventions](https://github.com/open-telemetry/semantic-conventions-genai).
 - Tool documentation: [Promptfoo](https://www.promptfoo.dev/docs/), [DeepEval](https://deepeval.com/docs/metrics-llm-evals), [Langfuse annotation queues](https://langfuse.com/docs/evaluation/evaluation-methods/annotation-queues).
