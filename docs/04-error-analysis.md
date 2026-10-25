@@ -37,7 +37,7 @@ An agent or multi-step pipeline runs several steps per request. A failure mode t
 
 Why the first step? Errors cascade. If the agent retrieves the old 60-day policy, the reply will quote 60 days too. The reply step did its best with bad input, so the fix belongs in retrieval. Hamel Husain and Shreya Shankar advise noting the first failure in a trace for this reason: upstream errors cause downstream ones. Andrew Ng teaches a closely related method, error analysis by component, in DeepLearning.AI's Agentic AI course (2025): take only the failed examples, read their traces, and count in a spreadsheet how often each step produced output clearly worse than a human expert would have.
 
-In practice, add one column, `failed_step`, to the sheet from your session. Here is an illustrative count for the refund agent, from 40 failed traces:
+In practice, add one column, `failed_step`, to the sheet from your session. Here is an illustrative count for the [refund agent](index.md#running-example), from 40 failed traces:
 
 | Step | First failures | Share |
 |---|---|---|

@@ -187,7 +187,7 @@ Changes you can see coming (a migration, a planned document update, your own pro
 ??? question "The refund policy changes from 60 to 30 days. What do you update first?"
     The stored references (the policy text and any expected answers), and the expert relabels the golden rows whose verdict depends on the window, so your evals encode the new correct answer. Re-check the judge against the relabelled rows, then run everything that touches the policy.
 
-??? question "Your support agent passes a refund case on 90% of runs. The product owner asks whether it is reliable enough for customers. Which metric answers that, and what does it give for 3 runs?"
+??? question "The refund agent passes a refund case on 90% of runs. The product owner asks whether it is reliable enough for customers. Which metric answers that, and what does it give for 3 runs?"
     pass^k. Each customer has a 90% chance of a correct answer (pass@1), but the agent handles this case again and again, and the product owner is asking whether it is right every time. If runs are independent, pass^3 is 0.9 × 0.9 × 0.9, about 73%, so in roughly a quarter of groups of three runs at least one goes wrong. pass@3 (99.9%) answers a different question: can the agent do it at all?
 
 **Next:** [Module 10. Common pitfalls](10-pitfalls.md)

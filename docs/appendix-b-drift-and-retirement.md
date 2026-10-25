@@ -38,7 +38,7 @@ Sculley et al. (Google, 2015) described this problem for ML systems as *"Changin
 - **One strange input is not drift.** Drift is a shift in the pattern, and it can be **sudden** (a policy change on Monday), **gradual** (users slowly adopt a new product), or **recurring** (end-of-year billing questions every December).
 - **Some drift is invisible from the inputs.** You can detect a change in *what users ask* by looking at inputs alone. You cannot detect a change in *what the correct answer is* that way: you need a signal of correctness, such as expert review, labels or a validated judge (Gama et al., 2014). This is why domain experts stay involved after launch.
 
-The kinds that matter, using the course's running example of a support agent that answers refund questions:
+The kinds that matter, using the course's running example, the [refund agent](index.md#running-example):
 
 | Kind | What changes | Support-agent example |
 |---|---|---|

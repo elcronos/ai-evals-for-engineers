@@ -12,6 +12,7 @@ theme:
     - toc.follow
     - search.highlight
     - content.code.copy
+    - content.tooltips
   palette:
     - media: "(prefers-color-scheme: light)"
       scheme: default
@@ -48,6 +49,7 @@ extra_javascript:
   - javascripts/widgets/base-rate.js
 
 markdown_extensions:
+  - abbr
   - admonition
   - attr_list
   - md_in_html
@@ -59,11 +61,17 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.tasklist:
       custom_checkbox: true
+  - pymdownx.snippets:
+      auto_append:
+        - docs/includes/abbreviations.md
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+
+exclude_docs: |
+  includes/
 
 nav:
   - Welcome: index.md

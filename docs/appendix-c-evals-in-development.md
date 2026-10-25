@@ -35,7 +35,7 @@ Step 5 has two parts for a reason. Ng recommends **component-level evals** while
 
 ## A worked iteration { #worked-iteration }
 
-The refund agent has an eval set of 80 inputs. Error analysis on the first run found 40 failures, and retrieval caused the most first failures (17). The notes show why: the "30 days" sentence often lands in a chunk without its heading, so the old 60-day document ranks above the current one. The team suspects the chunks are too small. They increase the chunk size and re-run. The numbers are illustrative.
+The [refund agent](index.md#running-example) has an eval set of 80 inputs. Error analysis on the first run found 40 failures, and retrieval caused the most first failures (17). The notes show why: the "30 days" sentence often lands in a chunk without its heading, so the old 60-day document ranks above the current one. The team suspects the chunks are too small. They increase the chunk size and re-run. The numbers are illustrative.
 
 | First failed step | Before | After | Change |
 |---|---|---|---|

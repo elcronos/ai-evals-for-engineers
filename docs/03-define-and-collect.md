@@ -82,7 +82,7 @@ You cannot evaluate what you did not capture. There are two starting points.
 
 ### Example: a trace
 
-One trace for the support agent, simplified. Note how much is invisible if you only see the final answer:
+One trace for the [refund agent](index.md#running-example), simplified. Note how much is invisible if you only see the final answer:
 
 ```json
 {
@@ -128,7 +128,7 @@ What each field is for:
 
 If real inputs are scarce, generate **synthetic inputs**, but with structure rather than by asking for "100 test questions":
 
-1. List the *dimensions* along which your product's traffic varies. For a support agent: topic (refund, billing, delivery, account), user state (calm, frustrated, confused), difficulty (clear, ambiguous, missing information) and special cases (out of scope, policy change, legal threat). That is 4 × 3 × 3 × 4 = 144 combinations.
+1. List the *dimensions* along which your product's traffic varies. For the refund agent: topic (refund, billing, delivery, account), user state (calm, frustrated, confused), difficulty (clear, ambiguous, missing information) and special cases (out of scope, policy change, legal threat). That is 4 × 3 × 3 × 4 = 144 combinations.
 2. Sample 50 to 100 combinations (keep the unusual ones) and ask an LLM to write one realistic message for each: *"Write one realistic message from a {user_state} customer asking about {topic}, where {difficulty}. Output the message only."*
 3. Have the expert delete unrealistic ones and, where useful, write what a good answer must do.
 4. Replace synthetic inputs with real ones as soon as you have real traffic.

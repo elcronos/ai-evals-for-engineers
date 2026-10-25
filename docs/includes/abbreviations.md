@@ -1,0 +1,2 @@
+*[refund agent]: The course's running example: a customer-support agent that answers billing and refund questions. The current policy allows refunds within 30 days; an old 60-day policy document is still in the search index. See "The running example" on the Welcome page.
+*[Refund agent]: The course's running example: a customer-support agent that answers billing and refund questions. The current policy allows refunds within 30 days; an old 60-day policy document is still in the search index. See "The running example" on the Welcome page.

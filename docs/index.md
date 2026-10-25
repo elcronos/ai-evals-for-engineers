@@ -65,9 +65,13 @@ The course has five parts and three optional appendices. Read Parts 1 to 3 in or
 
 Each module starts with what you will learn and ends with key takeaways and a few questions to check your understanding. Some modules also include optional "Try it yourself" boxes: small interactive calculators where you can change the numbers and watch a concept respond. They are collapsed by default, and the text makes sense without them.
 
-## The running example
+## The running example { #running-example }
 
-Most examples in the course use one system: a **customer-support agent that answers billing and refund questions**. It searches a set of policy documents, looks up orders with a tool, and replies to the customer. The refund policy allows refunds within 30 days of purchase. An older version of the policy allowed 60 days, and that old document is still in the search index. You will see that detail cause trouble more than once.
+Most examples in the course use one system: a **customer-support agent that answers billing and refund questions**. The course calls it **the refund agent**. It searches a set of policy documents, looks up orders with a tool, and replies to the customer. The refund policy allows refunds within 30 days of purchase. An older version of the policy allowed 60 days, and that old document is still in the search index. You will see that detail cause trouble more than once.
+
+Anywhere in the course, hover over (or tap) the words *refund agent* to see this summary, or follow the link at the first mention in each module to come back here.
+
+Part 3 also uses a second, simpler example to teach the metrics: a judge that reviews 100 pull requests (PRs) and flags the ones with bugs.
 
 ## A note on numbers
 

@@ -9,7 +9,7 @@ If you build with LLMs, your first instinct is to write tests. That instinct is 
 
 ## Which problems can code catch? { #why-hard }
 
-The [welcome page](index.md) quotes three ways an LLM response can be wrong without looking wrong. Each needs a different way of checking. Here they are for the course's refund agent:
+The [welcome page](index.md) quotes three ways an LLM response can be wrong without looking wrong. Each needs a different way of checking. Here they are for the course's running example, the [refund agent](index.md#running-example):
 
 | The response might be... | Refund-agent example | Can code check it? |
 |---|---|---|

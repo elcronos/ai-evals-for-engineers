@@ -38,7 +38,7 @@ Turn each failure mode from [Module 4](04-error-analysis.md) into an eval: a cod
 
 ## A worked example: one failure mode, from analysis to checks { #check-worked-example }
 
-Failure mode: `uses_current_policy`, from the trace in [Module 3](03-define-and-collect.md#step-2).
+Failure mode: `uses_current_policy`, from the [refund agent](index.md#running-example) trace in [Module 3](03-define-and-collect.md#step-2).
 
 **(a) Code check.** The retrieved `doc_ids` must not include `policy-2022-refunds` (a superseded document). This is a code-based eval and catches this case with no model.
 
