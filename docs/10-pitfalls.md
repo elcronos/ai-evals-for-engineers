@@ -30,7 +30,11 @@ Hamel Husain's talk [The Revenge of the Data Scientist](https://hamel.dev/blog/p
 
 ## Pitfall 2: Trusting the judge without auditing it for bias { #pitfall-2 }
 
-LLM judges have documented biases that systematically distort results. Some of them concern **pairwise judging**: showing the judge two answers and asking which is better, as you might when comparing an old and a new model. The effects are real, but their size varies a lot by model, task and setup, so measure them on **your** judge and **your** data rather than assuming a number.
+An LLM judge can be swayed by things that have nothing to do with quality: **where** an answer appears, **how long** it is, or whether it **sounds like the judge's own writing**. These are **biases**. Unlike random noise, which averages out, a bias pushes results the same way every time, so your scores look precise but lean in one direction.
+
+Some biases matter most in **pairwise judging**: the judge sees two answers side by side and picks the better one. You would do this when comparing your old model's reply with a new model's reply to the same question.
+
+How strong each bias is depends on the judge, the task and the setup, so do not trust a published number. **Test your own judge on your own data**, using the checks in the last column below.
 
 | Bias | What happens | What the research shows | What to do |
 |---|---|---|---|
