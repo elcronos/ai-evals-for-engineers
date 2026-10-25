@@ -8,7 +8,7 @@
     - how to measure a judge with a confusion matrix, precision, recall, F1, TPR and TNR
     - why accuracy misleads on unbalanced data
 
-    **Reading time:** about 15 minutes.
+    **Reading time:** about 20 minutes.
 
 <a id="part-3-note"></a>
 

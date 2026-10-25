@@ -31,6 +31,7 @@ Many of the ideas in this course follow their writing.
 - João Gama et al., [A Survey on Concept Drift Adaptation](https://dl.acm.org/doi/10.1145/2523813) (ACM Computing Surveys, 2014).
 - Mark Chen et al., [Evaluating Large Language Models Trained on Code](https://arxiv.org/abs/2107.03374) (2021; the Codex and HumanEval paper, which made pass@k popular and gives its unbiased estimator. It credits Kulal et al., 2019, with introducing pass@k).
 - Shunyu Yao et al., [τ-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains](https://arxiv.org/abs/2406.12045) (2024; source of pass^k).
+- Evan Miller (Anthropic), [Adding Error Bars to Evals: A Statistical Approach to Language Model Evaluations](https://arxiv.org/abs/2411.00640) (2024; why evals should report confidence intervals).
 - Lingjiao Chen, Matei Zaharia and James Zou, [How is ChatGPT's behavior changing over time?](https://arxiv.org/abs/2307.09009) (figures quoted from the current version of the paper).
 
 ## Drift and production monitoring

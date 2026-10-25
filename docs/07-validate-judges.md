@@ -9,7 +9,7 @@
 
     This module is Step 5 of the lifecycle. It uses the metrics from [Module 6](06-measuring-a-judge.md).
 
-    **Reading time:** about 10 minutes.
+    **Reading time:** about 15 minutes.
 
 ## Step 5: Validate your judges { #step-5 }
 
@@ -22,7 +22,7 @@
 | **1. Get human labels** | Use the expert's pass or fail labels for **one failure mode** from the labelled pool. | These labels are the ground truth. You measure everything against them. |
 | **2. Split the data** | Use the stratified **few-shot pool**, **dev set** and **test set** from [Module 5](05-build-checks.md#splits). | The split prevents **overfitting**. An overfitted judge is tuned until it looks perfect on examples that it has seen. Then it gets new examples wrong. Each time you examine the test-set results and change the prompt, the test set stops measuring performance on new data. Examples in the judge prompt come only from the few-shot pool, never from the dev set or the test set ([why](#few-shot-pool)). |
 | **3. Iterate on the dev set** | Tune the judge prompt or the model. Prompt tuning includes the choice of the [few-shot examples](#few-shot-pool). Measure TPR and TNR after each change. If you need one number to compare versions and both types of mistake matter about equally, also use [F1](06-measuring-a-judge.md#f1). If the judge returns a score, also tune the threshold and fit any calibration here. Use cross-validation on the dev set for the threshold and the calibration ([Module 8](08-scores-and-thresholds.md#recipe)). | Find the configuration that agrees best with the expert. Do not touch the test set. |
-| **4. Evaluate once on the test set** | Run the final judge on the test set. Report [TPR and TNR](06-measuring-a-judge.md#tpr-tnr) with confidence intervals. | This run confirms that the judge generalises to data that it has not seen. |
+| **4. Evaluate once on the test set** | Run the final judge on the test set. Report [TPR and TNR](06-measuring-a-judge.md#tpr-tnr). If the test set is small, also see [how sure the numbers are](#confidence-intervals) (optional). | This run confirms that the judge generalises to data that it has not seen. |
 | **5. Report per-class rates, not accuracy** | Publish the confusion matrix and TPR/TNR (the recall on each class). | [Accuracy hides class imbalance](06-measuring-a-judge.md#why-not-accuracy). |
 
 **The procedure as a diagram.** The diagram shows the full procedure. Follow the loop between the judge prompt and the dev set, and note that the test set joins only once. The rates use the TPR/TNR convention from [Module 6](06-measuring-a-judge.md#tpr-tnr): positive means a good output, passed.
@@ -39,7 +39,7 @@ flowchart TD
     M -->|"still improving"| J
     M -->|"stopped improving"| RUN["Run once on the test set"]
     TEST --> RUN
-    RUN --> R["Report TPR and TNR with confidence intervals"]
+    RUN --> R["Report TPR and TNR"]
     R --> OK{"Meets the agreed targets?"}
     OK -->|"Yes"| USE["Use the judge. Write down its limits."]
     OK -->|"No"| FIX["Fix the judge on the dev set, or drop it"]
@@ -123,11 +123,26 @@ REPLY: {{reply}}
 
 - Aim for approximately **100 to 200 labelled examples per failure mode**.
 - Have **at least 30 to 50 true passes and 30 to 50 true fails in the test set**. With the [Module 5 split shares](05-build-checks.md#splits), the test set is less than half of the pool. Thus, 30 of each class in the test set needs approximately 140 labels, even at a 50/50 balance. Aim for the upper end of the range, and over-sample failures.
-- Below approximately 60 labels in total, the confidence intervals are usually too wide to trust.
+- Below approximately 60 labels in total, the numbers are usually too uncertain to trust.
 
-**Confidence intervals.** A **confidence interval** is a range of plausible values for the true rate. Its width depends on how few examples you measured. For example, with 20 labels, a measured agreement of 90% is consistent with a true rate from approximately 70% to 97%. Report a confidence interval with every metric.
+**Why the count matters.** With few labels, a measured rate can be far from the true rate, just by chance. Be careful when you compare two versions that differ by only a few points on a small test set.
 
-**Why it matters:** in [Module 9](09-run-and-monitor.md#step-6), you will set a release gate with a margin. If that margin is smaller than the confidence interval, the gate passes bad releases and blocks good releases by luck.
+<a id="confidence-intervals"></a>
+
+??? note "Optional: how sure is a number from a small test set? (confidence intervals)"
+    **You do not need this to start.** Read it when you must trust a number from a small test set, or a small difference between two versions.
+
+    **What it is.** A **confidence interval** is the range in which the true rate probably lies, given how many examples you measured. Fewer examples give a wider range. For example, a judge agrees with the expert on 18 of 20 labels: that is 90%, but the true rate can be anywhere from approximately 70% to 97%. With 180 of 200 labels, the rate is again 90%, and the range is approximately 85% to 93%.
+
+    **When it is worth a check:**
+
+    - Your test set is small. Golden datasets of 100 to 200 labels are small in this sense.
+    - Two versions differ by only a few points, for example "TNR went from 84% to 88%".
+    - You set a release-gate margin ([Module 9](09-run-and-monitor.md#step-6)). If the margin is smaller than the range, the gate passes or blocks releases by luck.
+
+    **How common it is.** In ML practice, most results, benchmarks and leaderboards report one number without a range. Hamel Husain mentions "reporting uncalibrated scores without confidence intervals" only briefly, in a list of pitfalls in *The Revenge of the Data Scientist*. Anthropic's paper *Adding Error Bars to Evals* (Evan Miller, 2024) argues that evals should report them, and shows that a 2-point gap between models on a benchmark of a few thousand items is often noise. Your test sets are much smaller, so the noise is larger.
+
+    **A simple habit.** Before you trust a small number or a small difference, check how wide the range is. The calculator below does this in seconds. In code, use a Wilson score interval, which most statistics libraries provide.
 
 ??? example "Try it yourself: how wide is the interval?"
     Change the number of labels and see how wide the plausible range for the true rate is.
@@ -179,7 +194,7 @@ Fix or drop the judges that miss the targets.
     - a dev set to iterate on (the prompt, and for scores also the threshold and calibration)
     - a test set that you use once
 - **Few-shot examples** in the judge prompt come only from the few-shot pool. Start zero-shot. Add a small number of examples, both PASS and FAIL, only if the dev set shows that the judge misreads a pattern.
-- Count labels by the **rarer class**. Aim for at least 30 to 50 passes and 30 to 50 fails in the test set, and report **confidence intervals**.
+- Count labels by the **rarer class**. Aim for at least 30 to 50 passes and 30 to 50 fails in the test set. With fewer labels, the numbers are uncertain.
 - When failures are rare, **collect extra failures on purpose** and stratify the split.
 - **Re-check the judge** with fresh expert labels from production. Those labels also make the pool larger.
 
@@ -189,7 +204,7 @@ Fix or drop the judges that miss the targets.
     You used the test set for tuning. Thus, the test set no longer measures performance on new data, and the judge is probably overfitted. Tune on the dev set. Use the test set only once, at the end.
 
 ??? question "Your test set has 200 examples but only 4 failures. Can you trust the judge's TNR?"
-    No. With 4 failures, TNR can only be 0%, 25%, 50%, 75% or 100%. The confidence interval is very wide. Collect more failing examples and stratify the split.
+    No. With 4 failures, TNR can only be 0%, 25%, 50%, 75% or 100%, and chance alone can move it a lot. Collect more failing examples and stratify the split.
 
 ??? question "Can examples you paste into the judge prompt also be in the test set?"
     No. The judge has already seen them, so they increase its score falsely. Keep the few-shot pool separate from the test set.
