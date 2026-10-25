@@ -1,17 +1,15 @@
 # Module 1. Why evals?
 
 !!! abstract "In this module"
-    **You will learn:** why LLM outputs are hard to evaluate, why unit tests catch only part of what goes wrong, where code checks still win, and why evaluating an AI system never really finishes.
+    **You will learn:** which problems code can catch and which need a model or a human, why unit tests catch only part of what goes wrong, where code checks still win, and why evaluating an AI system never really finishes.
 
     **Reading time:** about 10 minutes.
 
 If you build with LLMs, your first instinct is to write tests. That instinct is correct but incomplete. This module shows what is missing.
 
-## Why LLM outputs are hard to evaluate { #why-hard }
+## Which problems can code catch? { #why-hard }
 
-Traditional code is deterministic: the same input gives the same output, and a test can state exactly what that output must be. LLM responses, in the words of Shankar and Husain quoted on the [welcome page](index.md), are "subjective, context-dependent, and multifaceted". An LLM reply has many acceptable forms, so before you can score it you must decide what "good" means. Once you have, the tools for measuring quality are not new: labelled examples, held-out test sets, precision and recall, calibration and error analysis all come from data science and machine learning engineering. This course applies those foundations to LLM outputs.
-
-Each of the three ambiguities in that quote points to a different way of checking. Here they are for the course's refund agent:
+The [welcome page](index.md) quotes three ways an LLM response can be wrong without looking wrong. Each needs a different way of checking. Here they are for the course's refund agent:
 
 | The response might be... | Refund-agent example | Can code check it? |
 |---|---|---|
