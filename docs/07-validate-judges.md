@@ -21,9 +21,23 @@
 |---|---|---|
 | **1. Get human labels** | Use the expert's pass or fail labels for **one failure mode** from the labelled pool. | These labels are the ground truth. You measure everything against them. |
 | **2. Split the data** | Use the stratified **few-shot pool**, **dev set** and **test set** from [Module 5](05-build-checks.md#splits). | The split prevents **overfitting**. An overfitted judge is tuned until it looks perfect on examples that it has seen. Then it gets new examples wrong. Each time you examine the test-set results and change the prompt, the test set stops measuring performance on new data. Examples in the judge prompt come only from the few-shot pool, never from the dev set or the test set ([why](#few-shot-pool)). |
-| **3. Iterate on the dev set** | Tune the judge prompt or the model. Prompt tuning includes the choice of the [few-shot examples](#few-shot-pool). Measure TPR and TNR after each change. If you need one number to compare versions and both types of mistake matter about equally, also use [F1](06-measuring-a-judge.md#f1). If the judge returns a score, also tune the threshold and fit any calibration here. Use cross-validation on the dev set for the threshold and the calibration ([Module 8](08-scores-and-thresholds.md#recipe)). | Find the configuration that agrees best with the expert. Do not touch the test set. |
+| **3. Iterate on the dev set** | Tune the judge prompt or the model. Prompt tuning includes the choice of the [few-shot examples](#few-shot-pool). Measure TPR and TNR after each change. If you need one number to compare versions and both types of mistake matter about equally, also use [F1](06-measuring-a-judge.md#f1). If the judge returns a score, also tune the threshold and fit any calibration here. Use [cross-validation](#cross-validation) on the dev set for the threshold and the calibration ([Module 8](08-scores-and-thresholds.md#recipe)). | Find the configuration that agrees best with the expert. Do not touch the test set. |
 | **4. Evaluate once on the test set** | Run the final judge on the test set. Report [TPR and TNR](06-measuring-a-judge.md#tpr-tnr). If the test set is small, also see [how sure the numbers are](#confidence-intervals) (optional). | This run confirms that the judge generalises to data that it has not seen. |
 | **5. Report per-class rates, not accuracy** | Publish the confusion matrix and TPR/TNR (the recall on each class). | [Accuracy hides class imbalance](06-measuring-a-judge.md#why-not-accuracy). |
+
+<a id="cross-validation"></a>
+
+??? note "Cross-validation (only for judges that return a score)"
+    Stage 3 uses [cross-validation](glossary.md#cross-validation) when the judge returns a score. Use this procedure on the dev set:
+
+    1. Split the dev set into k equal parts, for example 5 parts. Keep the same share of failures in each part (stratified).
+    2. Tune the threshold (and any calibration) on k-1 parts.
+    3. Measure on the part that you left out.
+    4. Rotate, so that each part is the left-out part one time.
+    5. Calculate the average of the measurements.
+    6. Choose the final threshold. Tune it one time on the whole dev set, or take the average of the k thresholds. The average from step 5 tells you how well that choice holds on new data. Then confirm it one time on the test set (stage 4).
+
+    **Why it matters:** one lucky split does not decide the result. A PASS/FAIL judge has no threshold, so it does not need this step.
 
 **The procedure as a diagram.** The diagram shows the full procedure. Follow the loop between the judge prompt and the dev set, and note that the test set joins only once. The rates use the TPR/TNR convention from [Module 6](06-measuring-a-judge.md#tpr-tnr): positive means a good output, passed.
 
@@ -50,6 +64,9 @@ flowchart TD
 ### What the few-shot pool is for { #few-shot-pool }
 
 **Few-shot examples.** Few-shot examples are a small number of labelled examples in the judge prompt. They show the judge what PASS and FAIL look like for this one failure mode.
+
+!!! tip "Start zero-shot"
+    **Few-shot examples are optional.** Start zero-shot, that is, with no examples, as in [Module 5](05-build-checks.md#check-worked-example). Add examples only if the dev set shows that the judge misreads a pattern.
 
 **Borderline cases.** The most useful few-shot examples are the borderline cases that your labelling guide had to settle. The judge is most likely to misread the rule on these cases. When you split the pool, put those borderline cases in the few-shot pool. If a guide case is already in the dev set or the test set, it cannot go in the prompt.
 
@@ -114,8 +131,6 @@ REPLY: {{reply}}
 ```
 
 **The borderline case.** Example 4 is the borderline case. It states the correct window, so a careless reader can pass it. But the invented exception makes it a FAIL under the rule.
-
-**Start zero-shot.** Few-shot examples are optional. Start zero-shot, that is, with no examples, as in Module 5. Add examples only if the dev set shows that the judge misreads a pattern.
 
 ## How many labels?
 

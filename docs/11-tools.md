@@ -153,4 +153,13 @@ tests:
 ??? question "Why set strict_mode=True in G-Eval?"
     To get a binary pass or fail instead of a graded score, which is easier to validate against expert labels and to act on.
 
+??? question "Why pin the evaluation steps in G-Eval instead of giving only the criteria?"
+    With only criteria, the judge regenerates its evaluation steps on each run, so the same output can get different verdicts. Pinned steps keep the judge consistent, and the judge you validated stays the judge you run.
+
+??? question "Why run red teaming on a schedule rather than on every pull request?"
+    It generates many attacks with a separate model, so it is slow and costs money. A nightly or weekly run still catches new weaknesses without blocking every change.
+
+??? question "Before you point a hosted attack generator at your system, what do you check?"
+    What data leaves your network. Attack generation may send your `purpose` text to a hosted service (OpenAI by default), so read the tool's data-handling documentation and agree it with your privacy team first.
+
 **Next:** [Module 12. Your first eval project](12-first-project.md)

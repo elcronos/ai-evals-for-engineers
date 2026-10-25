@@ -21,7 +21,7 @@
     - **Report TPR and TNR.** TPR shows how many good outputs the judge passes. TNR shows how many bad outputs the judge catches. Measure them one time, on the held-out test set.
     - **Thresholds are business decisions.** The product owner chooses the trade-off. You supply the measurements.
 
-    **What you can read quickly now and read again later:** the details of each classifier family, F1, calibration charts, Platt scaling and the cross-validation recipe in Module 8. Calibration, Platt scaling and cross-validation are necessary only when your judge returns a score.
+    **What you can read quickly now and read again later:** the details of each classifier family, F1, calibration charts, Platt scaling and cross-validation (Modules 7 and 8). Calibration, Platt scaling and cross-validation are necessary only when your judge returns a score.
 
     If your organisation has a data scientist or an ML engineer, work with them on this part. These methods are routine for them. A short review of your splits and metrics can stop you from trusting a judge that you should not trust.
 
@@ -76,8 +76,10 @@ Model-based classifiers have three families. The families have different trade-o
     Teams usually use LLM judges and decision models **zero-shot**. This means that nobody trains them on your task, so you do not do training. That is why they are attractive. But you still need expert-labelled data for these jobs:
 
     - **Validate** the judge on *your* task ([Module 7](07-validate-judges.md)).
-    - If the judge returns a score (decision models, classifiers), **tune its [threshold](08-scores-and-thresholds.md#threshold)** for your trade-off. A **threshold** is the cut-off score that separates PASS from FAIL.
+    - If the judge returns a score (decision models, classifiers), **tune its [threshold](08-scores-and-thresholds.md#threshold)** for your trade-off. A **threshold** is the cut-off score that selects the verdict. Scores on one side of the threshold are PASS. Scores on the other side are FAIL. Thus the threshold sets your pass/fail criterion.
     - If you use the score as a probability, [check calibration](08-scores-and-thresholds.md#raw-score).
+
+    **An example.** A decision model such as TypeSafe's Jev or OpenAI's Decisions API needs no training. But if you do not validate it against your labels and tune its threshold, its verdict is nothing more than a guess.
 
     A plain PASS/FAIL LLM judge has no threshold. For this judge, you use the labelled data to tune the prompt. **Few-shot** examples are examples that you paste into the prompt. They do not replace the labelled data. You still need separate, held-out labelled examples to measure the judge.
 
@@ -99,7 +101,7 @@ This category is new and changes quickly. Treat these products as examples of wh
 **Limits.** Decision models give you a verdict, not an explanation. They are less suitable for judgements that need broad knowledge or multi-step reasoning. They are classifiers like all other classifiers, so all of this module applies to them:
 
 - Measure precision and recall on your own labels.
-- Tune the threshold. Do not accept the default of 0.5.
+- Tune the threshold. The threshold selects the pass/fail cut-off for the model's score. Do not accept the default of 0.5.
 - Examine whether the probabilities are calibrated.
 
 **A published test.** Hamel Husain and Antaripa Saha's post [How To Use Decision Models for Evals](https://hamel.dev/blog/posts/decision-model-evals/) (October 2026) shows exactly this process. Their test was small: 98 agent traces and one task. These were the results:
@@ -269,11 +271,16 @@ TPR uses the left branch: TP / (TP + FN). TNR uses the right branch: TN / (TN + 
 ??? question "Why can precision measured on your golden dataset mislead you about production?"
     Precision changes with how common failures are. The golden dataset intentionally contains a larger share of failures. In production, failures are rarer, so a larger share of the judge's flags will be false alarms.
 
-??? question "You found a zero-shot decision model that looks good in the vendor's demo. What do you do before using it?"
-    Do these steps before you use the model:
+??? question "You read that decision models such as TypeSafe's Jev or OpenAI's Decisions API are great, and you do not need data to train them. Can you use one straight away?"
+    No. You skip the training, but you do not skip the data work. Do these steps before you trust the model:
 
     1. Validate it on expert-labelled examples from your own system.
-    2. Tune its threshold for your trade-off.
-    3. If you will act on its probability, check its calibration.
+    2. Tune its threshold, that is, its pass/fail cut-off, for your trade-off.
+    3. If you will act on its probability, check its calibration. Sometimes you must recalibrate it.
+
+    **Two examples from a published test.** Hamel Husain and Antaripa Saha [tested six decision models](https://hamel.dev/blog/posts/decision-model-evals/) against a target of 80% precision and 80% recall. The numbers come from the post's published chart data.
+
+    - **OpenAI Decisions needed threshold tuning.** At the default threshold of 0.50, its precision was 0.79, just below the target. They tuned the threshold to about 0.73. On held-out traces, precision was then 0.87 and recall 0.86. It was the only model that cleared both targets on held-out data.
+    - **Cloudflare Clef Flash stayed below the targets and needed recalibration.** At the default threshold, its precision was 1.00 but its recall was only 0.21. It missed most failures. After tuning, recall was 0.93 but precision fell to 0.66. It never reached both targets. Its probabilities were also poorly calibrated: one group of traces had an average predicted failure probability of about 8%, but 60% of them contained failures.
 
 **Next:** [Module 7. Validate your judges](07-validate-judges.md)

@@ -19,10 +19,10 @@ Then open http://127.0.0.1:8000.
 | Part | Modules |
 |---|---|
 | 1. Foundations | Why evals?, Graders |
-| 2. Building evals | Define what matters and collect data, Error analysis, Build your first checks |
+| 2. Building evals | Define what matters and collect data, Error analysis, Build your first evals |
 | 3. Trusting your judge | Measuring a judge, Validate your judges, Scores, calibration and thresholds |
 | 4. Running evals for real | Run, monitor and re-run, Common pitfalls |
 | 5. Putting it into practice | Tools, Your first eval project |
-| Appendices (optional) | Model migration playbook, Drift and model retirement |
+| Appendices (optional) | Model migration playbook, Drift and model retirement, Evals during development |
 
 Author: Camilo Pestana.

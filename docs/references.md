@@ -11,6 +11,13 @@ Many of the ideas in this course follow their writing.
 - Hamel Husain and Antaripa Saha, [How To Use Decision Models for Evals](https://hamel.dev/blog/posts/decision-model-evals/).
 - Hamel Husain, [Selecting The Right AI Evals Tool](https://hamel.dev/blog/posts/eval-tools/).
 - Hamel Husain and Shreya Shankar, [How are evaluations used differently in CI/CD vs. monitoring production?](https://hamel.dev/blog/posts/evals-faq/how-are-evaluations-used-differently-in-cicd-vs-monitoring-production.html).
+- Hamel Husain and Shreya Shankar, [How do I evaluate agentic workflows?](https://hamel.dev/blog/posts/evals-faq/how-do-i-evaluate-agentic-workflows.html) and [How do I evaluate complex multi-step workflows?](https://hamel.dev/blog/posts/evals-faq/how-do-i-evaluate-complex-multi-step-workflows.html) (source of the *transition failure matrix*: rows are the last successful state, columns are where the first failure occurred; one example is credited to Bryan Bischof's talk "Failure is A Funnel", Data Council 2025).
+- Hamel Husain and Shreya Shankar, [Why is error analysis so important in LLM evals, and how is it performed?](https://hamel.dev/blog/posts/evals-faq/why-is-error-analysis-so-important-in-llm-evals-and-how-is-it-performed.html) (noting the first failure in each trace, then counting failures per category) and [How often should I re-run error analysis on my production system?](https://hamel.dev/blog/posts/evals-faq/how-often-should-i-re-run-error-analysis-on-my-production-system.html) (re-run after significant changes such as prompt updates and model switches).
+
+## Andrew Ng and DeepLearning.AI
+
+- Andrew Ng, *Agentic AI* course, Module 4 (DeepLearning.AI, 2025): [Error analysis and prioritizing next steps](https://learn.deeplearning.ai/courses/agentic-ai/lesson/2ftglp/error-analysis-and-prioritizing-next-steps), [More error analysis examples](https://learn.deeplearning.ai/courses/agentic-ai/lesson/0kbds1/more-error-analysis-examples) and [Component-level evaluations](https://learn.deeplearning.ai/courses/agentic-ai/lesson/fwxyds/component-level-evaluations). Error analysis on failed examples only: read the traces and count, often in a spreadsheet, how often each component did materially worse than a human expert would, then focus on the component that fails most often.
+- Andrew Ng, The Batch, [Improve Agentic Performance with Evals and Error Analysis, Part 1](https://www.deeplearning.ai/the-batch/improve-agentic-performance-with-evals-and-error-analysis-part-1) (15 October 2025) and [Part 2](https://www.deeplearning.ai/the-batch/improve-agentic-performance-with-evals-and-error-analysis-part-2) (22 October 2025).
 
 ## Playbook
 
@@ -66,4 +73,5 @@ Checked 24 October 2026; these pages change.
 - Anthropic, [Demystifying evals for AI agents](https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents) (see its section on non-determinism for pass@k and pass^k).
 - Eugene Yan, [Task-specific LLM evals that do and don't work](https://eugeneyan.com/writing/evals/).
 - [OpenTelemetry GenAI semantic conventions](https://github.com/open-telemetry/semantic-conventions-genai).
+- scikit-learn user guide, [Cross-validation: evaluating estimator performance](https://scikit-learn.org/stable/modules/cross_validation.html) (section 3.1; a plain introduction to k-fold cross-validation).
 - Tool documentation: [Promptfoo](https://www.promptfoo.dev/docs/), [DeepEval](https://deepeval.com/docs/metrics-llm-evals), [Langfuse annotation queues](https://langfuse.com/docs/evaluation/evaluation-methods/annotation-queues).

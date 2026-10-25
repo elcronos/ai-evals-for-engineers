@@ -1,5 +1,10 @@
 # Module 8. Scores, calibration and thresholds
 
+!!! tip "Can I skip this module?"
+    **PASS/FAIL LLM judges: skim or skip.** If your judges are LLM judges that return only PASS or FAIL, you can skim or skip this module. This is the most common pattern. For most cases, this course discourages LLM judges that output scores ([Pitfall 1](10-pitfalls.md#pitfall-1)). PASS/FAIL judges have no score to calibrate and no threshold to tune.
+
+    **Graders that return a number: read it in full.** Read the full module if you use decision models, ML classifiers or any grader that returns a number.
+
 !!! abstract "In this module"
     **You will learn:**
 
@@ -8,8 +13,6 @@
     - how to choose the threshold that changes a score into a verdict
 
     **Reading time:** about 10 minutes.
-
-    **Can I skip this?** If all your judges return only PASS or FAIL, skim this module. Those judges have no score to calibrate and no threshold to tune. Read the full module if you use decision models, ML classifiers or any classifier or judge that returns a number.
 
 ## From raw score to trustworthy probability { #raw-score }
 
@@ -68,9 +71,13 @@ If the scores are not calibrated, a common correction is **Platt scaling**. Plat
 
 A **threshold** is a cut-off value. To change a numeric score into a verdict, you compare the score with the threshold. The default threshold is usually 0.5. If you use that default and do not check it, you can lose a lot of value.
 
+**The threshold is your pass/fail criterion.** For a grader that returns a score, the threshold is how you set the pass/fail criterion. The grader gives the same scores at every threshold. Only the verdicts change. But recall, precision and F1 can change significantly with the cut-off. In the [table below](#threshold-table), recall goes from 95% at 0.3 to 60% at 0.7. In Husain and Saha's test, Clef Flash had an F1 of 0.35 at the default 0.50 threshold and 0.78 after threshold tuning, with the same scores ([Module 6](06-measuring-a-judge.md#decision-models)).
+
 The figures below are illustrative. They use the pull-request example from [Module 6](06-measuring-a-judge.md#confusion-matrix). In that example, positive means "has a bug". The 0.5 row matches Module 6: recall is 87.5% and the false-alarm rate is 10 / 60 = 16.7%.
 
 The TPR/TNR convention uses the opposite direction: positive means a good output. In that convention, the recall of bugs is the TNR. The false-alarm rate is 1 minus the TPR. Thus the 0.5 row has a TNR of 87.5% and a TPR of 83.3%.
+
+<a id="threshold-table"></a>
 
 | Threshold | Bugs caught (recall) | False-alarm rate | F1 | Best when |
 |---|---|---|---|---|
@@ -113,14 +120,7 @@ Hamel Husain and Antaripa Saha wrote a post about decision models. The post give
 
 1. Finalise the judge prompt. Then set the **minimum precision and recall** for your use case. The product owner decides these values. Reject the models that do not reach them.
 
-2. **Tune each model's threshold on labelled data before you compare models.** Husain and Saha use cross-validation. In the terms of this course, do it on the **dev set** ([Module 5](05-build-checks.md#splits)):
-
-    1. Divide the dev set into several parts.
-    2. Tune on all parts but one.
-    3. Measure on the part that you left out.
-    4. Rotate the parts and calculate the average.
-
-    With this method, one lucky split does not decide the result. Then confirm the chosen threshold one time on your test set.
+2. **Tune each model's threshold on labelled data before you compare models.** Husain and Saha use stratified five-fold cross-validation. In the terms of this course, do it on the **dev set** ([Module 5](05-build-checks.md#splits)). [Module 7](07-validate-judges.md#cross-validation) explains the procedure. Then confirm the chosen threshold one time on your test set.
 
 3. **Choose a metric that matches your costs.** If missed failures and false alarms cost about the same, or you do not know yet, use **F1**. It is the usual balanced choice. If one costs more, use **F-beta**. F-beta is F1 with a weighting control. With beta = 2, recall (missed failures) counts more than precision (false alarms). With beta = 0.5, precision counts more than recall. Make the choice on purpose, from your costs.
 

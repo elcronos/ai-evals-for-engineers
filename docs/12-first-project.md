@@ -40,11 +40,11 @@ If any box is empty, stop and fix it first.
 You do not need to become an ML engineer. You need to internalise these:
 
 1. **Use code checks first; use validated models or humans for meaning.** Code can check anything objectively checkable, including some semantic facts. Tone, faithfulness and helpfulness need a validated model or a human.
-2. **Evals are a lifecycle, not a script.** Define what matters with product and domain experts, collect data, look at it, label it, build checks, validate the judges, run them, and refresh them with new failures.
+2. **Evals are a lifecycle, not a script.** Define what matters with product and domain experts, collect data, look at it, label it, build evals, validate the judges, run them, and refresh them with new failures.
 3. **Evals are regression tests for the life of the system.** Quality can change without a code change (inputs, documents, APIs, the definition of "good" and the model behind a name all drift), and every hosted model is eventually retired. Re-run the suite on every change, whether or not it went through your repository, and on a schedule.
 4. **Domain experts define "good", by reading real traces.** Dashboards of averages hide the failures that matter; failure modes come from error analysis, not off-the-shelf metrics.
-5. **Your judge is software too.** It needs its own tests: the confusion matrix, TPR and TNR, and a held-out test set.
-6. **A score between 0 and 1 is not automatically a probability.** Calibrate before you act on it. An LLM's self-reported confidence is usually overconfident.
+5. **Your judge is software too.** It needs its own tests: the confusion matrix, TPR and TNR, F1 on the failure class, and a held-out test set.
+6. **A score between 0 and 1 is not automatically a probability.** Calibrate before you act on it. An LLM's self-reported confidence is unreliable. **Never ask an LLM how confident it is and use that number to decide pass or fail.** Instead, validate the judge's PASS/FAIL verdicts against expert labels on a held-out test set ([Module 7](07-validate-judges.md#step-5)).
 7. **[Zero-shot does not mean zero data work.](06-measuring-a-judge.md#zero-shot)** You skip training, but you still need expert-labelled data to validate the grader and, if it returns a score, to tune its [threshold](08-scores-and-thresholds.md#threshold).
 8. **The threshold is a business decision**, not a default to accept.
 9. **The method matters more than the tool.** Follow the lifecycle; the tool is replaceable.

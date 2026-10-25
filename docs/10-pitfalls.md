@@ -75,9 +75,27 @@ Two separate traps:
 !!! danger "The vanity suite trap"
     A 100% pass rate does not mean the system is perfect. It means **your test cases are too easy to guide engineering**. A suite that scores, say, 70% on adversarial and edge-case inputs gives your team headroom to measure improvements release over release. (Your **regression** cases are different: those should pass close to 100%, because they check that things which used to work still do. Anthropic's agent-evals guide draws the same line between hard "capability" evals and near-100% "regression" evals.)
 
+**Which data does this apply to?** In Anthropic's guide, "capability evals" and "regression evals" are both tests of the **system**: you run inputs through it and score the new outputs. In this course they are two parts of the [regression set](05-build-checks.md#label-describes-output). They are not the golden dataset. The golden dataset holds expert-labelled outputs, and its job is to test the **judge**.
+
+| Name | What it tests | Expected pass rate |
+|---|---|---|
+| **Golden dataset** (expert-labelled rows) | The judge: does it agree with the expert? | Not a pass rate; you measure TPR and TNR |
+| **Regression cases** (regression set) | The system: does what used to work still work? | Close to 100% |
+| **Capability cases** (regression set) | The system: can it handle inputs that still fail? | Well below 100%; track them, do not gate on them |
+
 ## Pitfall 6: Automating the part that defines "good" { #pitfall-6 }
 
-LLMs are excellent at helping you *build* eval tooling: writing the harness, drafting judge prompts, summarising clusters of failures, generating candidate inputs. The pitfall is letting them do the part that defines what "good" is. Hamel Husain's *The Revenge of the Data Scientist* lists "bad data and labels" and "automating too much" among its five main pitfalls.
+!!! danger "One of the most common and tempting mistakes"
+    It is tempting to ask a coding agent or an LLM to "write the evals for this feature": the criteria, the rubrics, the test cases and the labels, all at once. It feels fast. It produces a suite that looks complete and measures very little. Here is why:
+
+    - **It invents generic criteria.** With no access to your traces or your experts, it falls back on "helpfulness", "coherence" and "relevance". Your real failure modes, such as "quotes the old 60-day refund window", come only from [error analysis](04-error-analysis.md).
+    - **It grades with the same blind spots.** If a model labels outputs written by a similar model, it tends to miss the same mistakes the system made. The check is circular: what one model gets wrong, the other often accepts.
+    - **It writes test cases that pass.** A model asked to produce tests usually produces cases the system already handles. You get the [vanity suite](#pitfall-5): a high pass rate that guides nothing.
+    - **There is no ground truth.** Without expert labels you cannot measure the judge's TPR and TNR, so you cannot know whether it is right. Validating automated grading against expert labels is the only way to know whether a judge can be trusted ([Module 7](07-validate-judges.md#step-5)). Skip it, and the numbers are opinions from a model about a model.
+
+    **What LLMs are good for:** writing the harness and CI code, drafting a judge prompt for the expert to edit, clustering the expert's notes into candidate failure modes, and generating candidate inputs for the expert to filter. In each case the expert defines what "good" means and checks the result.
+
+Hamel Husain's *The Revenge of the Data Scientist* lists "bad data and labels" and "automating too much" among its five main pitfalls.
 
 - **Bad data and labels.** If the people labelling lack the domain knowledge, every metric built on their labels inherits their mistakes. This is why the lead domain expert labels, not whoever is free.
 - **Automating too much.** Asking a model to "find all errors, make no mistakes" gives it no definition of an error and no ground truth, so it measures nothing in particular.
@@ -103,5 +121,17 @@ The takeaway: **use LLMs to speed up the work, and keep a person responsible for
 
 ??? question "Your new eval suite passes 100% on day one. Good news?"
     No. It means the cases are too easy to show improvements or regressions. Add hard, adversarial and edge-case inputs. (Regression cases that check old behaviour should pass close to 100%; capability evals should not.)
+
+??? question "A teammate wants a judge that rates replies for policy compliance from 1 to 5. What do you suggest instead?"
+    Break the criterion into small yes/no questions, judge each one pass or fail, and validate each against human labels. If you need a number, count passes divided by total. Gate releases on the critical questions, not on the summary.
+
+??? question "You have a rubric ready before anyone has read a trace. What is the risk?"
+    The judge will grade generic criteria and miss the failures your users actually hit. Read real traces first, find the failure modes, then write the criteria.
+
+??? question "A text-to-SQL reply is missing the mandatory tenant filter. Should an LLM judge check this?"
+    No. A code check catches it in milliseconds, at no model cost and with no variance. Fail it at Tier 1 and only send outputs that pass the code checks on to an LLM judge.
+
+??? question "A coding agent offers to write the criteria, test cases and labels for your new feature. Why should you decline the labels?"
+    The labels are the ground truth. If a model writes them, it brings generic criteria and the same blind spots as the system, and you have nothing independent to validate the judge against. Let the agent write the harness or draft prompts; the expert labels and defines "good".
 
 **Next:** [Module 11. Tools](11-tools.md)

@@ -127,3 +127,5 @@ The vendors say the same. Anthropic: *"consider thorough testing of your applica
 - **Hosted models are retired**, recently every 12 to 18 months from release, sometimes with only weeks of notice. Plan for the shortest notice you have seen.
 - **Pin model versions** and record them in every trace, but remember a pinned ID is not frozen.
 - **Newer is not automatically better.** Measure quality, cost and latency on your own task.
+
+**Next:** [Appendix C. Evals during development](appendix-c-evals-in-development.md)

@@ -73,7 +73,7 @@ nav:
   - Part 2. Building evals:
       - 3. Define what matters and collect data: 03-define-and-collect.md
       - 4. Error analysis: 04-error-analysis.md
-      - 5. Build your first checks: 05-build-checks.md
+      - 5. Build your first evals: 05-build-checks.md
   - Part 3. Trusting your judge:
       - 6. Measuring a judge: 06-measuring-a-judge.md
       - 7. Validate your judges: 07-validate-judges.md
@@ -87,6 +87,7 @@ nav:
   - Appendices (optional):
       - A. Model migration playbook: appendix-a-model-migration.md
       - B. Drift and model retirement: appendix-b-drift-and-retirement.md
+      - C. Evals during development: appendix-c-evals-in-development.md
   - Glossary: glossary.md
   - References: references.md
 

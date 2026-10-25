@@ -1,13 +1,13 @@
-# Module 5. Build your first checks
+# Module 5. Build your first evals
 
 !!! abstract "In this module"
-    **You will learn:** how to turn each failure mode into a check, choosing the cheapest grader that works; how one expert-labelled pool serves as both the golden dataset (to test judges) and the source of the regression set (to test the system); and how to write a narrow, binary judge prompt. This is Step 4 of the lifecycle.
+    **You will learn:** how to turn each failure mode into an eval, choosing the cheapest grader that works; how one expert-labelled pool serves as both the golden dataset (to test judges) and the source of the regression set (to test the system); and how to write a narrow, binary judge prompt. This is Step 4 of the lifecycle.
 
     **Reading time:** about 15 minutes.
 
-## Step 4: Build the first checks { #step-4 }
+## Step 4: Build the first evals { #step-4 }
 
-Turn each failure mode from [Module 4](04-error-analysis.md) into a check. Work from cheap to expensive, using this decision rule:
+Turn each failure mode from [Module 4](04-error-analysis.md) into an eval: a code check, a classifier or a judge. Work from cheap to expensive, using this decision rule:
 
 | Question | If yes |
 |---|---|

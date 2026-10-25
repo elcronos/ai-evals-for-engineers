@@ -3,7 +3,7 @@
 !!! abstract "In this module"
     **You will learn:** how to find the specific ways your system fails by reading real traces with a domain expert, how to group what you find into failure modes, and how labelling works in practice. This is Step 3 of the lifecycle.
 
-    **Reading time:** about 5 minutes.
+    **Reading time:** about 10 minutes.
 
 ## Step 3: Look at the data and label it { #step-3 }
 
@@ -31,9 +31,45 @@ The process has four parts:
 
 The result is a set of **domain-specific failure modes** ("Cited a non-existent policy", "Failed to escalate to a human") that are far more useful than generic scores. In the next module you will build one check for each.
 
+## For agents and pipelines: count first failures per step { #first-failure-by-step }
+
+An agent or multi-step pipeline runs several steps per request. A failure mode tells you *what* went wrong. It does not always tell you *which step* to fix. So, for each failed trace, also record the **first step where it went wrong**. Then count the failed traces per step.
+
+Why the first step? Errors cascade. If the agent retrieves the old 60-day policy, the reply will quote 60 days too. The reply step did its best with bad input, so the fix belongs in retrieval. Hamel Husain and Shreya Shankar advise noting the first failure in a trace for this reason: upstream errors cause downstream ones. Andrew Ng teaches a closely related method, error analysis by component, in DeepLearning.AI's Agentic AI course (2025): take only the failed examples, read their traces, and count in a spreadsheet how often each step produced output clearly worse than a human expert would have.
+
+In practice, add one column, `failed_step`, to the sheet from your session. Here is an illustrative count for the refund agent, from 40 failed traces:
+
+| Step | First failures | Share |
+|---|---|---|
+| Understand the request | 4 | 10% |
+| Retrieve the policy | 17 | 42% |
+| Look up the order | 6 | 15% |
+| Write the reply | 9 | 23% |
+| Escalate to a human | 4 | 10% |
+
+**How to read it:** the step with the most first failures is where to look first. Here that is retrieval, and the notes would show why (for example, the old 60-day document ranks above the current one). Ng adds a second test: also ask whether you have ideas to improve that step. A step that fails often but that you cannot change yet may come second.
+
+??? note "Optional: a transition failure matrix for agents with states"
+    When the agent can take different paths (look up the order first, or retrieve the policy first, or escalate straight away), one count per step can hide where the path breaks. Hamel Husain and Shreya Shankar suggest a **transition failure matrix**: "rows represent the last successful state and columns represent where the first failure occurred". Their FAQ credits one example to Bryan Bischof's talk "Failure is A Funnel" (Data Council, 2025).
+
+    The same 40 illustrative failures, as a matrix:
+
+    | Last successful step ↓ / First failed step → | Understand | Retrieve policy | Look up order | Write reply | Escalate |
+    |---|---|---|---|---|---|
+    | (none) | 4 | 0 | 0 | 0 | 0 |
+    | Understand the request | 0 | **12** | 4 | 0 | 3 |
+    | Retrieve the policy | 0 | 0 | 2 | 6 | 0 |
+    | Look up the order | 0 | 5 | 0 | 3 | 1 |
+
+    Each column total matches the per-step count above. The matrix adds the path: the hotspot is understand, then retrieve (12). Read those traces first, and the notes then show why. Before you compare cells, check how many traces took each path, because a busy path collects more failures. Lay out the rows and columns to fit your own agent's steps.
+
+    **Counting every failed step instead.** Ng's spreadsheet marks every step that did clearly worse than an expert would have with the same input, not only the first. A step that did its best with bad input is not marked. His percentages can then add up to more than 100%, because one trace can fail at several steps. Counting only the first failure gives one entry per trace and is quicker. Either works; be consistent within one round of analysis.
+
+If you use this count during development, to decide what to change next and to check that a change helped, read [Appendix C. Evals during development](appendix-c-evals-in-development.md#evals-in-development).
+
 ## How labelling works in practice { #labelling }
 
-Later (when you build checks and validate judges, Modules [5](05-build-checks.md#labelled-pool) and [7](07-validate-judges.md)) you will label examples pass or fail *per failure mode*, with a short reason:
+Later (when you build evals and validate judges, Modules [5](05-build-checks.md#labelled-pool) and [7](07-validate-judges.md)) you will label examples pass or fail *per failure mode*, with a short reason:
 
 | trace_id | failure_mode | label | reason |
 |---|---|---|---|
@@ -75,6 +111,7 @@ You can start in a shared spreadsheet with columns `trace_id | link to trace | i
 - **Read real traces before writing any metric or rubric.** Generic scores hide what is actually breaking.
 - The expert notes the **first thing that went wrong** on each trace; you group the notes into **failure modes** and count them.
 - Keep going until new traces stop revealing new failure modes.
+- For agents and pipelines, also record the **first step that failed** in each trace and count per step. Look first at the step with the most first failures.
 - **Labels come from one lead domain expert** (the "benevolent dictator"), guided by a written labelling guide. Checks with several labellers are worth adding later, and only when the evals are critical and you have the resources.
 
 ## Check your understanding
@@ -85,7 +122,10 @@ You can start in a shared spreadsheet with columns `trace_id | link to trace | i
 ??? question "If you do add a second labeller and you agree on 95% of traces, is the labelling guide good enough?"
     Not necessarily. If 95% of traces pass, you could agree 95% of the time by both marking everything "pass". Check your agreement on the failures, or use a chance-corrected measure such as Cohen's kappa.
 
+??? question "A trace retrieved the old 60-day policy, and the reply then quoted 60 days. Which step do you record?"
+    Retrieval, because it is the first step that went wrong. The reply step worked with the input it was given. Fixing the reply would hide the problem; fixing retrieval removes it.
+
 ??? question "When do you stop reading traces?"
     When new traces stop revealing new kinds of failure, for example when the last 20 traces added no new failure mode.
 
-**Next:** [Module 5. Build your first checks](05-build-checks.md)
+**Next:** [Module 5. Build your first evals](05-build-checks.md)

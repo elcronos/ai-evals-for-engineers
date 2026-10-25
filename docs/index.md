@@ -28,7 +28,7 @@ By the end of the course you will be able to:
 
 ## How the course is organised
 
-The course has five parts and two optional appendices. Read Parts 1 to 3 in order; after that, use the rest as you need it. Reading times are approximate.
+The course has five parts and three optional appendices. Read Parts 1 to 3 in order; after that, use the rest as you need it. Reading times are approximate.
 
 | Module | What you will learn | Reading time |
 |---|---|---|
@@ -37,8 +37,8 @@ The course has five parts and two optional appendices. Read Parts 1 to 3 in orde
 | [2. Graders](02-graders.md) | The three kinds of grader, and evals versus guardrails | 5 min |
 | **Part 2. Building evals** | | |
 | [3. Define what matters and collect data](03-define-and-collect.md) | The eval lifecycle, who decides what "good" means, and what to log | 10 min |
-| [4. Error analysis](04-error-analysis.md) | Reading traces to find your real failure modes | 5 min |
-| [5. Build your first checks](05-build-checks.md) | Turning failure modes into code checks and judges | 15 min |
+| [4. Error analysis](04-error-analysis.md) | Reading traces to find your real failure modes | 10 min |
+| [5. Build your first evals](05-build-checks.md) | Turning failure modes into evals: code checks and judges | 15 min |
 | **Part 3. Trusting your judge** | The hardest part of the course: [what to focus on](06-measuring-a-judge.md#part-3-note) | |
 | [6. Measuring a judge](06-measuring-a-judge.md) | Kinds of model-based grader, the confusion matrix, TPR and TNR | 20 min |
 | [7. Validate your judges](07-validate-judges.md) | The procedure for testing a judge against expert labels | 15 min |
@@ -52,6 +52,7 @@ The course has five parts and two optional appendices. Read Parts 1 to 3 in orde
 | **Appendices (optional)** | | |
 | [A. Model migration playbook](appendix-a-model-migration.md) | How to switch to a new model safely | 5 min |
 | [B. Drift and model retirement](appendix-b-drift-and-retirement.md) | The detail and evidence behind "evals never finish" | 15 min |
+| [C. Evals during development](appendix-c-evals-in-development.md) | The build, measure and fix loop while you develop | 5 min |
 
 Each module starts with what you will learn and ends with key takeaways and a few questions to check your understanding. Some modules also include optional "Try it yourself" boxes: small interactive calculators where you can change the numbers and watch a concept respond. They are collapsed by default, and the text makes sense without them.
 

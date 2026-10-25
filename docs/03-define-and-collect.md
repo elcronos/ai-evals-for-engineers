@@ -13,7 +13,7 @@ Good evals are a loop, not a script you write once. This is the lifecycle the co
 flowchart TB
     A["<b>Step 1. Define</b><br/>Product + domain experts:<br/>what matters?"] --> B["<b>Step 2. Collect data</b><br/>Traces or<br/>input/output pairs"]
     B --> C["<b>Step 3. Look and label</b><br/>Error analysis by<br/>a domain expert"]
-    C --> D["<b>Step 4. Build checks</b><br/>Code first,<br/>then judges"]
+    C --> D["<b>Step 4. Build evals</b><br/>Code first,<br/>then judges"]
     D --> E["<b>Step 5. Validate judges</b><br/>Against human labels"]
     E --> F["<b>Step 6. Run</b><br/>CI, production,<br/>red teaming"]
     F --> G["<b>Step 7. Monitor and refresh</b><br/>New failures become<br/>new checks"]
@@ -24,7 +24,7 @@ flowchart TB
 |---|---|
 | 1. Define what matters, 2. Collect data | This module |
 | 3. Look at the data and label it | [Module 4](04-error-analysis.md) |
-| 4. Build checks | [Module 5](05-build-checks.md) |
+| 4. Build evals | [Module 5](05-build-checks.md) |
 | 5. Validate judges | [Modules 6 to 8](06-measuring-a-judge.md) |
 | 6. Run, 7. Monitor and refresh | [Module 9](09-run-and-monitor.md) |
 
@@ -111,13 +111,20 @@ A reviewer reading this sees what an output-only check would miss: the agent ret
 
 ### Example: input/output pairs when you have no traces
 
-A first dataset can be a plain JSONL file, one test case per line, with an input and, where you know it, a reference answer or the behaviour required:
+A first dataset can be a plain JSONL file: one test case per line, each a small JSON object.
 
 ```json
-{"id": "refund-001", "input": "Can I get a refund after 45 days?", "reference": "No. Refunds are only available within 30 days of purchase.", "tags": ["refund", "policy"]}
-{"id": "billing-002", "input": "i was charged twice!!! fix it NOW", "reference": null, "tags": ["billing", "frustrated-customer"]}
-{"id": "scope-001", "input": "My chest hurts, what should I take?", "reference": "Declines medical advice and suggests contacting a medical professional.", "tags": ["out-of-scope", "safety"]}
+{"id": "refund-001", "input": "Can I get a refund after 45 days?", "reference": "No. Refunds are only available within 30 days of purchase.", "tags": ["topic:refund", "case:policy-edge"]}
+{"id": "billing-002", "input": "i was charged twice!!! fix it NOW", "reference": null, "tags": ["topic:billing", "case:frustrated-user"]}
+{"id": "scope-001", "input": "My chest hurts, what should I take?", "reference": "Declines medical advice and suggests contacting a medical professional.", "tags": ["topic:medical", "case:out-of-scope"]}
 ```
+
+What each field is for:
+
+- **`id`**: a stable, unique name for the case. It lets you compare the same case across runs ("refund-001 passed last week and fails now") and link a result back to its notes.
+- **`input`**: what the user sends. This is what you run through the system.
+- **`reference`**: the correct answer, or the behaviour required, where you know it. `null` means there is no single right answer. For `billing-002`, many replies are fine; you judge it with checks instead ("acknowledges the double charge", "does not promise a refund it cannot give", "stays polite").
+- **`tags`**: labels that describe the case. Use a small, fixed vocabulary, here `topic:` and `case:`. Tags do not change how a case runs. They let you filter, count and slice results, for example the pass rate per tag ("refunds pass 95%, out-of-scope only 60%"). They also let you pick cases quickly, such as all `case:out-of-scope` inputs for a regression set or for error analysis.
 
 If real inputs are scarce, generate **synthetic inputs**, but with structure rather than by asking for "100 test questions":
 
@@ -168,15 +175,21 @@ A practical pattern that avoids the problem:
 
 ### Privacy and sensitivity
 
-Prompts, tool arguments and retrieved documents routinely contain personal data. Agree the approach with your privacy and security teams **before** you start storing content. The OpenTelemetry GenAI conventions make content capture **opt-in** for exactly this reason. Practical defaults:
+How much work this takes depends on what your traces contain. The detailed practices below apply when traces can contain **personal data (PII)** or other sensitive data, such as customer records or confidential documents. An internal tool whose traces hold no personal data needs little of it: sensible access control and a retention limit are usually enough.
 
-- Classify prompts, tool arguments and retrieved documents under your organisation's data classification policy. If they can contain customer data, treat them as that class.
-- Redact before data leaves the application or at the collector, not after it is stored. Regex masking is a first layer only; it misses names and free-text personal data. For structured tool arguments, allow-list the fields you keep.
-- **Pseudonymise** user and session IDs: replace them with a stable random ID so traces can still be joined, with the mapping to the real person held elsewhere under stricter access.
-- Set a retention limit and delete traces you no longer need.
-- Restrict who can read raw content. Annotators may need it; most engineers do not.
+!!! warning "The one must-do"
+    If your traces could contain **any** personal or other sensitive data, agree the approach with your privacy and security teams **before** you start storing content. Data that is already stored is much harder to clean up.
 
-**Done when:** you have a set of traces or input/output pairs the expert can read (about 100 to start), with the approval to store them recorded.
+??? note "If your traces can contain personal data (PII)"
+    Prompts, tool arguments and retrieved documents routinely contain personal data. The OpenTelemetry GenAI conventions make content capture **opt-in** for exactly this reason. Practical defaults:
+
+    - Classify prompts, tool arguments and retrieved documents under your organisation's data classification policy. If they can contain customer data, treat them as that class.
+    - Redact before data leaves the application or at the collector, not after it is stored. Regex masking is a first layer only; it misses names and free-text personal data. For structured tool arguments, allow-list the fields you keep.
+    - **Pseudonymise** user and session IDs: replace them with a stable random ID so traces can still be joined, with the mapping to the real person held elsewhere under stricter access.
+    - Set a retention limit and delete traces you no longer need.
+    - Restrict who can read raw content. Annotators may need it; most engineers do not.
+
+**Done when:** you have a set of traces or input/output pairs the expert can read (about 100 to start), with any approval needed to store them recorded.
 
 ## Key takeaways
 
