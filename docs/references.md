@@ -4,6 +4,7 @@
 
 Many of the ideas in this course follow their writing.
 
+- Shreya Shankar and Hamel Husain, *Evals for AI Engineers: Systematically Measuring and Improving AI Applications* ([O'Reilly, 2026](https://www.oreilly.com/library/view/evals-for-ai/9798341660717/); source of the quote on the welcome page).
 - Hamel Husain, [AI Evals: Everything You Need to Know](https://hamel.dev/blog/posts/evals-faq/). A good first read after this course.
 - Hamel Husain, [Your AI Product Needs Evals](https://hamel.dev/blog/posts/evals/) and [A Field Guide to Rapidly Improving AI Products](https://hamel.dev/blog/posts/field-guide/).
 - Hamel Husain, [Using LLM-as-a-Judge For Evaluation: A Complete Guide](https://hamel.dev/blog/posts/llm-judge/).

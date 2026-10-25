@@ -1,11 +1,25 @@
 # Module 1. Why evals?
 
 !!! abstract "In this module"
-    **You will learn:** why unit tests catch only part of what goes wrong in an LLM system, where code checks still win, and why evaluating an AI system never really finishes.
+    **You will learn:** why LLM outputs are hard to evaluate, why unit tests catch only part of what goes wrong, where code checks still win, and why evaluating an AI system never really finishes.
 
     **Reading time:** about 10 minutes.
 
 If you build with LLMs, your first instinct is to write tests. That instinct is correct but incomplete. This module shows what is missing.
+
+## Why LLM outputs are hard to evaluate { #why-hard }
+
+Traditional code is deterministic: the same input gives the same output, and a test can state exactly what that output must be. LLM responses, in the words of Shankar and Husain quoted on the [welcome page](index.md), are "subjective, context-dependent, and multifaceted". Evaluation is also different from traditional machine learning, where each example usually has one correct label (spam or not spam) to compare against. An LLM reply has many acceptable forms, so before you can score it you must decide what "good" means.
+
+Each of the three ambiguities in that quote points to a different way of checking. Here they are for the course's refund agent:
+
+| The response might be... | Refund-agent example | Can code check it? |
+|---|---|---|
+| Factually accurate yet inappropriate | States the correct 30-day window, in a cheerful tone, to a customer who is angry about a double charge | **No.** Tone needs a reader: a model-based judge or a human. |
+| Persuasive yet incorrect | Confidently says "you have 60 days" | **Sometimes.** If the correct answer is known (the current policy says 30 days), code can compare the number. If not, a judge checks the claim against the source documents. |
+| Addresses most but not all of the question | Explains the refund window but ignores the question about the double charge | **Rarely.** Knowing what was asked and what was left out needs a reader. |
+
+That split runs through the whole course. **Code-based evals** check what can be stated exactly: cheap, fast and repeatable. **Model-based evals** (and humans) judge meaning, and must themselves be validated. The rest of this module shows where code-only tests fall short, and [Module 2](02-graders.md) introduces the three kinds of grader.
 
 ## What code-only tests miss { #why-evals }
 

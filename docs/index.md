@@ -4,7 +4,11 @@
 
 *By Camilo Pestana. Last updated 24 October 2026.*
 
-When your code calls a model, new failure modes appear that ordinary unit tests usually miss. A reply can be valid JSON, pass every assertion and still promise a refund your policy does not allow. This course teaches you how to find and measure failures like that: what data to collect, who needs to be involved, how to turn what you see into checks, and how to know whether you can trust the judge that scores your system.
+> Unlike traditional software with deterministic outputs, LLM pipelines produce responses that are often subjective, context-dependent, and multifaceted. A response might be factually accurate yet inappropriate for the context. It might sound persuasive while conveying incorrect information. It might also address most but not all parts of the user’s question. These ambiguities make evaluation fundamentally different from conventional software testing or even traditional machine learning validation.
+>
+> Shreya Shankar and Hamel Husain, *Evals for AI Engineers* (O'Reilly, 2026)
+
+In practice, a reply from your support agent can be valid JSON, pass every assertion and still promise a refund your policy does not allow. This course teaches you how to measure quality anyway: what data to collect, who decides what "good" means, how to turn what you see into evals, and how to know whether you can trust the judge that scores your system.
 
 !!! tip "If you remember one thing"
     *Look at real data, let domain experts define what "good" means, and validate your judge against human labels.*
