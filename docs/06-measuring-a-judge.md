@@ -29,8 +29,8 @@
 
 **The trust question.** After you choose a model-based judge, you must answer one question: **can you trust its judgement?** This module and the next two modules give you the tools to answer it. Hamel Husain puts the wider problem this way: *verifying classifiers has become "a lost art in modern AI".* An **LLM judge** is an LLM that reads an output and gives a verdict on it. Teams build LLM judges and ship them, but they do not ask how they know that the judge is trustworthy.
 
-!!! info "AI evals are not a new, unsolved problem"
-    When you check an LLM judge, you do **classifier validation**. This validation uses labelled examples from experts, held-out test sets, precision and recall, and calibration. These methods are established machine learning practice. The new part is that you apply them to LLM outputs. The idea is simple: give the judge inputs whose correct answers you already know, and count how often it gets them right.
+!!! info "A reminder: this is classifier validation"
+    As the [welcome page](index.md) says, AI evals are not a new, unsolved problem. When you check an LLM judge, you do **classifier validation**, an established practice from machine learning. The idea is simple: give the judge inputs whose correct answers you already know, and count how often it gets them right.
 
 **Classifiers.** A **classifier** is any model that puts each input into one label from a fixed set of labels, for example PASS or FAIL. Every model-based judge is a classifier.
 

@@ -10,6 +10,11 @@
 
 In practice, a reply from your support agent can be valid JSON, pass every assertion and still promise a refund your policy does not allow. This course teaches you how to measure quality anyway: what data to collect, who decides what "good" means, how to turn what you see into evals, and how to know whether you can trust the judge that scores your system.
 
+!!! info "AI evals are not a new, unsolved problem"
+    It is a common belief that AI evals are too new for anyone to know how to do them well. That is not true. Most of the foundations come from data science and machine learning engineering: labelled ground truth from experts, train, dev and test splits, precision and recall, calibration, confidence intervals and error analysis. Checking an LLM judge, for example, is **classifier validation**, a well-established practice.
+
+    What is new is applying these methods to LLM outputs, and deciding what "good" means when a reply has many acceptable forms. Tools, models and vendors change every few months. The foundations in this course have changed very little.
+
 !!! tip "If you remember one thing"
     *Look at real data, let domain experts define what "good" means, and validate your judge against human labels.*
 
