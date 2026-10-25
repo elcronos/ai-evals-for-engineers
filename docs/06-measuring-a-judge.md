@@ -202,12 +202,34 @@ TPR uses the left branch: TP / (TP + FN). TNR uses the right branch: TN / (TN + 
 
 **Better than chance.** As a minimum, a judge must be clearly better than chance, that is, TPR + TNR must be above 1. Why 1? A judge that always says PASS gets TPR 1 and TNR 0. A judge that flips a coin gets 0.5 and 0.5. Both sums are 1. A sum at or near 1 means that the judge's verdicts carry no information about the output.
 
+??? example "Try it yourself: confusion matrix calculator"
+    Change the four counts, or load a preset, and watch every metric update. The second preset is the pass-everything judge from the side note further down.
+
+    **Try this:** load the cautious judge. Precision is 100%, but F1 is only about 4%, because recall is 2%.
+
+    <div class="ew-widget" data-widget="confusion-matrix" markdown>
+
+    Interactive calculator (needs JavaScript). With the course numbers: accuracy 85%, precision 77.8%, recall 87.5%, F1 82.4%, TPR 83.3%, TNR 87.5%.
+
+    </div>
+
 **Why eval write-ups prefer TPR and TNR.** Precision changes with the **base rate**, that is, how common failures are. TPR and TNR do not change with the base rate. Your **golden dataset** is your set of expert-labelled examples. It intentionally contains a larger share of failures than production ([Module 7](07-validate-judges.md)). Thus, the precision that you measure on it is not the precision that you will see in production.
 
 **An example of the effect.** Failures can be half of your golden dataset but only 5% of production traffic. In this case, many more of the judge's production flags will be false alarms than the golden dataset suggests. To estimate production precision, use one of these methods:
 
 - Calculate precision again at the production failure rate.
 - Measure precision on a random sample of production traces.
+
+??? example "Try it yourself: precision in production"
+    Keep the judge the same and change how common failures are. TPR and TNR stay fixed; precision does not.
+
+    **Try this:** press 1% and read the precision. About 19 of every 20 flags are now false alarms, although the judge has not changed.
+
+    <div class="ew-widget" data-widget="base-rate" markdown>
+
+    Interactive base-rate calculator (needs JavaScript). The Module 6 PR judge has precision 77.8% on the golden set, where 40% of PRs have bugs. At a 5% failure rate, the same judge would have a precision of about 22%.
+
+    </div>
 
 <a id="why-not-accuracy"></a>
 

@@ -1,0 +1,69 @@
+/* Confusion matrix calculator. Base .ew-* styles live in core.css. */
+.md-typeset .ew-widget .ew-cm-inputs {
+  border: 0;
+  margin: 0.6rem 0 0.4rem;
+  padding: 0;
+  min-width: 0;
+}
+.md-typeset .ew-widget .ew-cm-inputs legend {
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 0;
+  margin-bottom: 0.4rem;
+}
+/* 2x2 grid mirroring the course table: corner, two column headers, then
+   a row header and two cells per row. */
+.md-typeset .ew-widget .ew-cm-grid {
+  display: grid;
+  grid-template-columns: minmax(6rem, auto) minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.4rem 0.6rem;
+  align-items: end;
+}
+.md-typeset .ew-widget .ew-cm-colhead,
+.md-typeset .ew-widget .ew-cm-rowhead {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--md-default-fg-color--light);
+}
+.md-typeset .ew-widget .ew-cm-colhead { text-align: center; }
+.md-typeset .ew-widget .ew-cm-rowhead { align-self: center; }
+.md-typeset .ew-widget .ew-cm-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+.md-typeset .ew-widget .ew-cm-cell label {
+  font-size: 0.68rem;
+  color: var(--md-default-fg-color--light);
+}
+.md-typeset .ew-widget .ew-cm-cell input {
+  font: inherit;
+  font-size: 0.8rem;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.25rem 0.4rem;
+  color: var(--md-default-fg-color);
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.1rem;
+  font-variant-numeric: tabular-nums;
+}
+.md-typeset .ew-widget .ew-cm-cell input[aria-invalid="true"] {
+  border-color: var(--ew-neg, #cf222e);
+  border-width: 2px;
+}
+.md-typeset .ew-widget .ew-cm-h {
+  font-size: 0.72rem;
+  font-weight: 700;
+  margin: 0.6rem 0 0.2rem;
+  color: var(--md-default-fg-color--light);
+}
+
+/* Narrow screens: one column; the labels already carry row and column. */
+@media (max-width: 30em) {
+  .md-typeset .ew-widget .ew-cm-grid { grid-template-columns: 1fr; }
+  .md-typeset .ew-widget .ew-cm-corner,
+  .md-typeset .ew-widget .ew-cm-colhead { display: none; }
+  .md-typeset .ew-widget .ew-cm-rowhead { margin-top: 0.3rem; }
+}

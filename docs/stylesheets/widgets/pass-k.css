@@ -1,0 +1,62 @@
+/* pass@k and pass^k widget (Module 9). Base layout lives in core.css. */
+.md-typeset .ew-widget[data-widget="pass-k"] .ew-field input[type="range"] {
+  width: 100%;
+  accent-color: var(--md-accent-fg-color);
+}
+.md-typeset .ew-widget[data-widget="pass-k"] .ew-pk-sentence {
+  font-weight: 600;
+}
+.md-typeset .ew-widget[data-widget="pass-k"] .ew-chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 40rem;
+}
+.ew-widget[data-widget="pass-k"] .ew-pk-grid {
+  stroke: var(--md-default-fg-color--lightest);
+  stroke-width: 1;
+}
+.ew-widget[data-widget="pass-k"] .ew-pk-tick,
+.ew-widget[data-widget="pass-k"] .ew-pk-axis,
+.ew-widget[data-widget="pass-k"] .ew-pk-label {
+  fill: var(--md-default-fg-color);
+  font-size: 11px;
+}
+.ew-widget[data-widget="pass-k"] .ew-pk-label {
+  font-weight: 600;
+}
+.ew-widget[data-widget="pass-k"] .ew-pk-line-at {
+  fill: none;
+  stroke: var(--md-primary-fg-color);
+  stroke-width: 2.5;
+}
+.ew-widget[data-widget="pass-k"] .ew-pk-line-hat {
+  fill: none;
+  stroke: var(--ew-neg, #cf222e);
+  stroke-width: 2.5;
+  stroke-dasharray: 6, 4;
+}
+.ew-widget[data-widget="pass-k"] .ew-pk-marker {
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 1.5;
+  stroke-dasharray: 3, 3;
+}
+.ew-widget[data-widget="pass-k"] .ew-pk-dot-at {
+  fill: var(--md-primary-fg-color);
+  stroke: var(--md-default-bg-color);
+  stroke-width: 1.5;
+}
+.ew-widget[data-widget="pass-k"] .ew-pk-dot-hat {
+  fill: var(--md-default-bg-color);
+  stroke: var(--ew-neg, #cf222e);
+  stroke-width: 2.5;
+}
+/* Indigo primary is dark on the slate background; lift it for contrast. */
+[data-md-color-scheme="slate"] .ew-widget[data-widget="pass-k"] .ew-pk-line-at,
+[data-md-color-scheme="slate"] .ew-widget[data-widget="pass-k"] .ew-pk-dot-at {
+  stroke: var(--md-typeset-a-color);
+}
+[data-md-color-scheme="slate"] .ew-widget[data-widget="pass-k"] .ew-pk-dot-at {
+  fill: var(--md-typeset-a-color);
+  stroke: var(--md-default-bg-color);
+}

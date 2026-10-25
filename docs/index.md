@@ -53,7 +53,7 @@ The course has five parts and two optional appendices. Read Parts 1 to 3 in orde
 | [A. Model migration playbook](appendix-a-model-migration.md) | How to switch to a new model safely | 5 min |
 | [B. Drift and model retirement](appendix-b-drift-and-retirement.md) | The detail and evidence behind "evals never finish" | 15 min |
 
-Each module starts with what you will learn and ends with key takeaways and a few questions to check your understanding.
+Each module starts with what you will learn and ends with key takeaways and a few questions to check your understanding. Some modules also include optional "Try it yourself" boxes: small interactive calculators where you can change the numbers and watch a concept respond. They are collapsed by default, and the text makes sense without them.
 
 ## The running example
 

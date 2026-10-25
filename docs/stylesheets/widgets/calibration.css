@@ -1,0 +1,103 @@
+/* Calibration and ECE widget. Colours only via Material variables and the
+   --ew-pos / --ew-neg tokens defined in core.css. */
+.md-typeset .ew-widget[data-widget="calibration"] .ew-cal-inputs {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+.md-typeset .ew-widget[data-widget="calibration"] .ew-cal-inputs input[type="range"] {
+  flex: 1 1 10rem;
+  min-width: 0;
+  accent-color: var(--md-accent-fg-color);
+}
+.md-typeset .ew-widget[data-widget="calibration"] .ew-cal-inputs input[type="number"] {
+  width: 4.5rem;
+  font: inherit;
+  padding: 0.2rem 0.3rem;
+  color: var(--md-default-fg-color);
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.2rem;
+}
+.md-typeset .ew-widget[data-widget="calibration"] .ew-cal-inputs input[aria-invalid="true"] {
+  border-color: var(--ew-neg, #cf222e);
+  border-width: 2px;
+}
+.md-typeset .ew-widget[data-widget="calibration"] .ew-cal-head {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0.4rem 0 0.1rem;
+}
+.md-typeset .ew-widget[data-widget="calibration"] .ew-cal-sentence {
+  margin: 0 0 0.4rem;
+}
+
+/* Chart */
+.md-typeset .ew-widget[data-widget="calibration"] .ew-chart svg {
+  display: block;
+  width: 100%;
+  max-width: 30rem;
+  height: auto;
+}
+.ew-cal-grid line { stroke: var(--md-default-fg-color--lightest); stroke-width: 1; }
+.ew-cal-axis line { stroke: var(--md-default-fg-color--light); stroke-width: 1; }
+.ew-cal-tick { fill: var(--md-default-fg-color--light); font-size: 10px; }
+.ew-cal-axt { fill: var(--md-default-fg-color); font-size: 11px; }
+.ew-cal-lgt { fill: var(--md-default-fg-color); font-size: 10px; }
+.ew-cal-diag { stroke: var(--md-typeset-a-color); stroke-width: 1.5; fill: none; }
+.ew-cal-bar { fill: var(--md-primary-fg-color); }
+.ew-cal-barlbl { fill: var(--md-primary-bg-color, #fff); font-size: 10px; font-weight: 700; }
+.ew-cal-barlbl-out { fill: var(--md-default-fg-color); font-size: 10px; font-weight: 700; }
+.ew-cal-mean { stroke: var(--md-default-fg-color); stroke-width: 2.5; }
+.ew-cal-gap { stroke: var(--ew-neg, #cf222e); stroke-width: 2; }
+
+/* Table */
+.md-typeset .ew-widget[data-widget="calibration"] .ew-cal-tablewrap {
+  overflow-x: auto;
+  max-width: 100%;
+}
+.md-typeset .ew-widget[data-widget="calibration"] table.ew-cal-table {
+  display: table;
+  border-collapse: collapse;
+  font-size: 0.7rem;
+  margin: 0.4rem 0;
+  min-width: 100%;
+  border: 0;
+  box-shadow: none;
+}
+.md-typeset .ew-widget[data-widget="calibration"] .ew-cal-table caption {
+  text-align: left;
+  font-size: 0.7rem;
+  color: var(--md-default-fg-color--light);
+  padding-bottom: 0.2rem;
+}
+.md-typeset .ew-widget[data-widget="calibration"] .ew-cal-table th,
+.md-typeset .ew-widget[data-widget="calibration"] .ew-cal-table td {
+  padding: 0.25rem 0.4rem;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+  text-align: right;
+  vertical-align: top;
+  min-width: 0;
+  background: transparent;
+  color: var(--md-default-fg-color);
+}
+.md-typeset .ew-widget[data-widget="calibration"] .ew-cal-table th[scope="row"],
+.md-typeset .ew-widget[data-widget="calibration"] .ew-cal-table thead th:first-child {
+  text-align: left;
+}
+.md-typeset .ew-widget[data-widget="calibration"] .ew-cal-table thead th {
+  font-weight: 700;
+  background: var(--md-code-bg-color);
+}
+
+@media (max-width: 30em) {
+  .md-typeset .ew-widget[data-widget="calibration"] table.ew-cal-table { font-size: 0.65rem; }
+  .md-typeset .ew-widget[data-widget="calibration"] .ew-cal-table th,
+  .md-typeset .ew-widget[data-widget="calibration"] .ew-cal-table td { padding: 0.2rem 0.25rem; }
+}
+
+/* Indigo primary is dark on the slate background; lift it for contrast and
+   use the dark background colour for the in-bar labels on the lighter fill. */
+[data-md-color-scheme="slate"] .ew-cal-bar { fill: var(--md-typeset-a-color); }
+[data-md-color-scheme="slate"] .ew-cal-barlbl { fill: var(--md-default-bg-color); }

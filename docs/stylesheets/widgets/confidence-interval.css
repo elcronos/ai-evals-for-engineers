@@ -1,0 +1,118 @@
+/* Confidence interval widget (Module 7). Base .ew- styles live in core.css. */
+
+.md-typeset .ew-widget.ew-ci .ew-chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 26rem;
+}
+
+.md-typeset .ew-ci .ew-ci-axis {
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 1.5;
+}
+
+.md-typeset .ew-ci .ew-ci-tick {
+  stroke: var(--md-default-fg-color--lighter);
+  stroke-width: 1;
+}
+
+.md-typeset .ew-ci .ew-ci-ticklabel,
+.md-typeset .ew-ci .ew-ci-label {
+  fill: var(--md-default-fg-color);
+  font-size: 11px;
+  font-family: inherit;
+}
+
+.md-typeset .ew-ci .ew-ci-label {
+  font-weight: 700;
+}
+
+.md-typeset .ew-ci .ew-ci-bar {
+  fill: var(--md-primary-fg-color);
+  fill-opacity: 0.35;
+  stroke: var(--md-primary-fg-color);
+  stroke-width: 1;
+}
+
+.md-typeset .ew-ci .ew-ci-cap {
+  stroke: var(--md-default-fg-color);
+  stroke-width: 2;
+}
+
+.md-typeset .ew-ci .ew-ci-marker {
+  fill: var(--md-default-fg-color);
+  stroke: var(--md-default-bg-color);
+  stroke-width: 1.5;
+}
+
+.md-typeset .ew-ci .ew-ci-tablewrap {
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 0.6em 0;
+}
+
+.md-typeset .ew-ci table.ew-ci-table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.72rem;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  margin: 0;
+}
+
+.md-typeset .ew-ci table.ew-ci-table caption {
+  caption-side: top;
+  text-align: left;
+  font-weight: 700;
+  padding: 0 0 0.3em;
+  color: var(--md-default-fg-color);
+}
+
+.md-typeset .ew-ci table.ew-ci-table th,
+.md-typeset .ew-ci table.ew-ci-table td {
+  padding: 0.3em 0.5em;
+  text-align: left;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+  color: var(--md-default-fg-color);
+  background: transparent;
+  font-variant-numeric: tabular-nums;
+}
+
+.md-typeset .ew-ci table.ew-ci-table thead th {
+  font-weight: 700;
+  border-bottom: 2px solid var(--md-default-fg-color--lighter);
+}
+
+.md-typeset .ew-ci table.ew-ci-table tbody th {
+  font-weight: 400;
+}
+
+.md-typeset .ew-ci table.ew-ci-table tr.ew-ci-current th,
+.md-typeset .ew-ci table.ew-ci-table tr.ew-ci-current td {
+  background: var(--md-code-bg-color);
+  font-weight: 700;
+}
+
+@media screen and (max-width: 30em) {
+  .md-typeset .ew-ci table.ew-ci-table th,
+  .md-typeset .ew-ci table.ew-ci-table td {
+    padding: 0.25em 0.3em;
+  }
+}
+
+/* Two-cell metric rows (term and value): no empty third column. */
+.md-typeset .ew-ci .ew-row { grid-template-columns: minmax(8rem, 14rem) 1fr; }
+.md-typeset .ew-ci .ew-val { text-align: left; }
+@media screen and (max-width: 30em) {
+  .md-typeset .ew-ci .ew-row { grid-template-columns: 1fr; }
+}
+
+/* Indigo primary is dark on the slate background; lift it for contrast. */
+[data-md-color-scheme="slate"] .md-typeset .ew-ci .ew-ci-bar {
+  fill: var(--md-typeset-a-color);
+  stroke: var(--md-typeset-a-color);
+  fill-opacity: 0.45;
+}

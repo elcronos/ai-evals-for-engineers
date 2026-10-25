@@ -30,6 +30,22 @@ theme:
 
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/widgets/core.css
+  - stylesheets/widgets/confusion-matrix.css
+  - stylesheets/widgets/threshold.css
+  - stylesheets/widgets/calibration.css
+  - stylesheets/widgets/confidence-interval.css
+  - stylesheets/widgets/pass-k.css
+  - stylesheets/widgets/base-rate.css
+
+extra_javascript:
+  - javascripts/widgets/core.js
+  - javascripts/widgets/confusion-matrix.js
+  - javascripts/widgets/threshold.js
+  - javascripts/widgets/calibration.js
+  - javascripts/widgets/confidence-interval.js
+  - javascripts/widgets/pass-k.js
+  - javascripts/widgets/base-rate.js
 
 markdown_extensions:
   - admonition

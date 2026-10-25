@@ -1,0 +1,193 @@
+/* Shared base styles for the optional "Try it yourself" widgets.
+   Colours come only from Material variables plus two semantic tokens. */
+
+.md-typeset .ew-widget {
+  --ew-pos: #1a7f37;
+  --ew-neg: #cf222e;
+  margin: 0.6em 0 0;
+  font-size: 0.75rem;
+  color: var(--md-default-fg-color);
+  max-width: 100%;
+  min-width: 0;
+  /* break-word only splits a word that cannot fit any other way. */
+  overflow-wrap: break-word;
+}
+/* Headers wrap only between words; short row headers (bucket ranges such
+   as 20-40%, label counts) never split at all. */
+.md-typeset .ew-widget th { overflow-wrap: normal; hyphens: manual; }
+.md-typeset .ew-widget tbody th { white-space: nowrap; }
+
+/* Visually hidden live region (short headline for screen readers). */
+.md-typeset .ew-widget .ew-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+[data-md-color-scheme="slate"] .md-typeset .ew-widget {
+  --ew-pos: #3fb950;
+  --ew-neg: #f85149;
+}
+
+.md-typeset .ew-widget p { margin: 0.4em 0; }
+
+.md-typeset .ew-widget .ew-badge {
+  display: inline-block;
+  margin: 0 0 0.5em;
+  padding: 0.1em 0.5em;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--md-default-fg-color--light);
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 1em;
+}
+
+/* Controls */
+.md-typeset .ew-widget .ew-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 0.6rem 1rem;
+  margin: 0.4em 0;
+}
+.md-typeset .ew-widget .ew-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+.md-typeset .ew-widget .ew-field label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--md-default-fg-color--light);
+}
+.md-typeset .ew-widget input[type="number"] {
+  font: inherit;
+  font-size: 0.8rem;
+  width: 100%;
+  max-width: 10rem;
+  box-sizing: border-box;
+  padding: 0.25rem 0.4rem;
+  color: var(--md-default-fg-color);
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: 0.1rem;
+  font-variant-numeric: tabular-nums;
+}
+.md-typeset .ew-widget input[type="range"] {
+  width: 100%;
+  margin: 0.2rem 0;
+  accent-color: var(--md-accent-fg-color);
+}
+.md-typeset .ew-widget input[aria-invalid="true"] {
+  border-color: var(--ew-neg);
+  border-width: 2px;
+}
+
+/* Preset buttons */
+.md-typeset .ew-widget .ew-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.5em 0;
+}
+.md-typeset .ew-widget .ew-btn {
+  font: inherit;
+  font-size: 0.7rem;
+  padding: 0.25rem 0.6rem;
+  cursor: pointer;
+  color: var(--md-typeset-a-color);
+  background: transparent;
+  border: 1px solid var(--md-typeset-a-color);
+  border-radius: 0.2rem;
+}
+.md-typeset .ew-widget .ew-btn:hover {
+  background: var(--md-code-bg-color);
+}
+.md-typeset .ew-widget .ew-btn[aria-pressed="true"] {
+  color: var(--md-default-bg-color);
+  background: var(--md-typeset-a-color);
+  font-weight: 700;
+}
+
+/* Visible focus for every control */
+.md-typeset .ew-widget :focus-visible {
+  outline: 2px solid var(--md-accent-fg-color);
+  outline-offset: 2px;
+}
+
+.md-typeset .ew-widget .ew-error {
+  min-height: 1em;
+  margin: 0.2em 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--ew-neg);
+}
+.md-typeset .ew-widget .ew-error:empty { min-height: 0; margin: 0; }
+
+/* Results */
+.md-typeset .ew-widget .ew-out { margin: 0.4em 0; }
+.md-typeset .ew-widget .ew-metrics {
+  margin: 0.4em 0;
+  padding: 0;
+}
+.md-typeset .ew-widget .ew-row {
+  display: grid;
+  grid-template-columns: minmax(8rem, 14rem) 5.5rem 1fr;
+  gap: 0.2rem 0.8rem;
+  align-items: baseline;
+  padding: 0.25em 0;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+.md-typeset .ew-widget .ew-row dt { font-weight: 600; margin: 0; }
+.md-typeset .ew-widget .ew-row dd { margin: 0; }
+.md-typeset .ew-widget .ew-val {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.md-typeset .ew-widget .ew-read {
+  font-size: 0.7rem;
+  color: var(--md-default-fg-color--light);
+}
+
+/* Charts: fixed viewBox, scaled by CSS, never measured. */
+.md-typeset .ew-widget .ew-chart {
+  margin: 0.6em 0 0.2em;
+  max-width: 100%;
+}
+.md-typeset .ew-widget .ew-chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* 600-unit-wide charts keep a minimum size so 11px chart text stays about
+   10px or larger on phones; the wrapper scrolls sideways instead. */
+.md-typeset .ew-widget .ew-chart-wide { overflow-x: auto; }
+.md-typeset .ew-widget .ew-chart-wide svg { min-width: 560px; }
+/* Zero-specificity default so widget-specific fills always win. */
+:where(.md-typeset .ew-widget svg text) { fill: var(--md-default-fg-color); }
+
+.md-typeset .ew-widget .ew-summary {
+  font-size: 0.7rem;
+  color: var(--md-default-fg-color--light);
+}
+.md-typeset .ew-widget .ew-note {
+  font-size: 0.68rem;
+  font-style: italic;
+  color: var(--md-default-fg-color--light);
+}
+
+@media (max-width: 30em) {
+  .md-typeset .ew-widget .ew-row {
+    grid-template-columns: 1fr auto;
+  }
+  .md-typeset .ew-widget .ew-read { grid-column: 1 / -1; }
+  .md-typeset .ew-widget input[type="number"] { max-width: none; }
+}

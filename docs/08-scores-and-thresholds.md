@@ -51,6 +51,17 @@ The charts above show the result of this test. Compare the bars in each chart wi
 
 **ECE (Expected Calibration Error)** is the average of these gaps across all buckets. Each gap counts in proportion to the number of predictions in its bucket. A lower ECE is better.
 
+??? example "Try it yourself: calibration and ECE"
+    It opens on the overconfident (bottom) chart. Slide towards 0 to reach the well-calibrated top chart, then back again, and watch the bars leave the diagonal and ECE grow.
+
+    **Try this:** at each step, look at the table and find which bucket adds most to ECE. The top bucket holds half the predictions, so its gap dominates.
+
+    <div class="ew-widget" data-widget="calibration" markdown>
+
+    Interactive calibration chart (needs JavaScript). In the overconfident example, the 80 to 100% bucket is right only 58% of the time.
+
+    </div>
+
 If the scores are not calibrated, a common correction is **Platt scaling**. Platt scaling fits a smooth correction curve. The curve maps the model's score to the rate that you actually observed on labelled dev-set examples. Make sure that Platt scaling improves the results on your data. It does not always improve them.
 
 ## Threshold: a business decision, not a default { #threshold }
@@ -76,6 +87,17 @@ flowchart LR
     UP["Increase the threshold (for example 0.5 to 0.7)"] --> R2["Fewer bugs caught: recall 87.5% to 60%"]
     UP --> FA2["Fewer false alarms: 16.7% to 5%"]
 ```
+
+??? example "Try it yourself: move the threshold"
+    Drag the threshold over 100 illustrative PR scores and watch recall and false alarms move together.
+
+    **Try this:** find the lowest threshold that keeps the false-alarm rate under 10%. How much recall do you give up compared with 0.5?
+
+    <div class="ew-widget" data-widget="threshold" markdown>
+
+    Interactive threshold explorer (needs JavaScript). At 0.3: recall 95%, false alarms 30%. At 0.5: 87.5% and 16.7%. At 0.7: 60% and 5%.
+
+    </div>
 
 Thresholds apply to all graders and models that return a numeric score. Examples are ML classifiers, decision models and G-Eval in its default, non-strict mode (see [Module 11](11-tools.md)). A pure PASS/FAIL LLM judge has no threshold to tune. Tune its prompt instead.
 

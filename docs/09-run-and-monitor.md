@@ -42,6 +42,17 @@ At k = 1 both are the ordinary pass rate. Report the share of inputs that pass, 
 
 The same system looks nearly perfect by one metric, yet by the other, more than a quarter of the time at least one of three runs fails, because the two answer different questions.
 
+??? example "Try it yourself: pass@k and pass^k"
+    Change the per-run pass rate and the number of runs, and watch the two metrics pull apart.
+
+    **Try this:** set k to 10. pass@10 is almost 100%, while pass^10 falls to about 35%.
+
+    <div class="ew-widget" data-widget="pass-k" markdown>
+
+    Interactive pass@k calculator (needs JavaScript). At a 90% per-run pass rate with 3 runs, pass@3 is 99.9% and pass^3 is 72.9%.
+
+    </div>
+
 These formulas assume each run of an input is independent and has the same chance of passing. Two things break this in practice. Inputs differ in difficulty, so never plug one overall pass rate into them: count passes per input and average (see the note below). And runs of one input can fail together, for example from a shared bad tool state, so treat the result as an estimate, not an exact figure.
 
 This is not just theory. On the τ-bench benchmark of customer-service agents, gpt-4o passed 61.2% of retail tasks on a single run, but fewer than 25% when all 8 runs had to pass (Yao et al.).

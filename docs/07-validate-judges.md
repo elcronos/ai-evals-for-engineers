@@ -129,6 +129,17 @@ REPLY: {{reply}}
 
 **Why it matters:** in [Module 9](09-run-and-monitor.md#step-6), you will set a release gate with a margin. If that margin is smaller than the confidence interval, the gate passes bad releases and blocks good releases by luck.
 
+??? example "Try it yourself: how wide is the interval?"
+    Change the number of labels and see how wide the plausible range for the true rate is.
+
+    **Try this:** press 180 of 200 and compare it with 18 of 20. The measured rate is the same 90%, but the interval shrinks from about 27 to about 8 percentage points.
+
+    <div class="ew-widget" data-widget="confidence-interval" markdown>
+
+    Interactive interval calculator (needs JavaScript). With 20 labels, a measured 90% agreement is consistent with a true rate from about 70% to 97%.
+
+    </div>
+
 ## When failures are rare { #rare-failures }
 
 **Class imbalance.** If failures are rare (for example, 5%), a random sample will not contain sufficient failures. This problem is called **class imbalance**: one outcome is much rarer than the other.

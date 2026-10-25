@@ -1,0 +1,132 @@
+/* Threshold explorer (Module 8). Base .ew-* styles live in core.css. */
+
+.md-typeset .ew-widget[data-widget="threshold"] .ew-th-sentence {
+  margin: 0.4em 0;
+  font-weight: 600;
+}
+
+.md-typeset .ew-widget[data-widget="threshold"] .ew-th-subhead {
+  margin: 0.6em 0 0.2em;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--md-default-fg-color--light);
+}
+
+/* Mini 2x2 count table. */
+.md-typeset .ew-widget[data-widget="threshold"] .ew-th-cm {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.md-typeset .ew-widget[data-widget="threshold"] table.ew-th-table {
+  display: table;
+  width: auto;
+  margin: 0.4em 0;
+  border-collapse: collapse;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 0.72rem;
+  background: transparent;
+}
+
+.md-typeset .ew-widget[data-widget="threshold"] table.ew-th-table caption {
+  caption-side: top;
+  text-align: left;
+  padding: 0 0 0.25em;
+  font-size: 0.7rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.md-typeset .ew-widget[data-widget="threshold"] table.ew-th-table th,
+.md-typeset .ew-widget[data-widget="threshold"] table.ew-th-table td {
+  padding: 0.25em 0.6em;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  text-align: center;
+  background: transparent;
+  color: var(--md-default-fg-color);
+  min-width: 0;
+}
+
+.md-typeset .ew-widget[data-widget="threshold"] table.ew-th-table th[scope="row"] {
+  text-align: left;
+  font-weight: 600;
+}
+
+.md-typeset .ew-widget[data-widget="threshold"] table.ew-th-table td {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+/* Correct cells get a solid left edge, wrong cells a dashed one: meaning is
+   not carried by colour alone, the TP/FN/FP/TN labels say it in text. */
+.md-typeset .ew-widget[data-widget="threshold"] table.ew-th-table td.ew-th-good {
+  box-shadow: inset 3px 0 0 var(--ew-pos);
+}
+
+.md-typeset .ew-widget[data-widget="threshold"] table.ew-th-table td.ew-th-bad {
+  box-shadow: inset 3px 0 0 var(--ew-neg);
+  border-style: dashed;
+}
+
+/* Chart. Geometry is fixed by the viewBox, so it renders correctly even when
+   first mounted inside a closed <details>. */
+.md-typeset .ew-widget[data-widget="threshold"] .ew-chart svg.ew-th-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 40rem;
+}
+
+.ew-widget[data-widget="threshold"] .ew-th-shade {
+  fill: var(--md-accent-fg-color);
+  fill-opacity: 0.12;
+}
+
+.ew-widget[data-widget="threshold"] .ew-th-axis {
+  stroke: var(--md-default-fg-color--light);
+  stroke-width: 1;
+}
+
+.ew-widget[data-widget="threshold"] .ew-th-grid {
+  stroke: var(--md-default-fg-color--lightest);
+  stroke-width: 1;
+}
+
+.ew-widget[data-widget="threshold"] .ew-th-tick,
+.ew-widget[data-widget="threshold"] .ew-th-axislabel,
+.ew-widget[data-widget="threshold"] .ew-th-rowlabel,
+.ew-widget[data-widget="threshold"] .ew-th-flag {
+  fill: var(--md-default-fg-color);
+  font-size: 11px;
+}
+
+.ew-widget[data-widget="threshold"] .ew-th-rowlabel {
+  font-weight: 600;
+}
+
+.ew-widget[data-widget="threshold"] .ew-th-flag {
+  font-weight: 600;
+}
+
+.ew-widget[data-widget="threshold"] .ew-th-bug {
+  fill: var(--ew-neg);
+  stroke: var(--md-default-bg-color);
+  stroke-width: 0.8;
+}
+
+.ew-widget[data-widget="threshold"] .ew-th-clean {
+  fill: var(--md-default-bg-color);
+  stroke: var(--ew-pos);
+  stroke-width: 1.4;
+}
+
+.ew-widget[data-widget="threshold"] .ew-th-line {
+  stroke: var(--md-accent-fg-color);
+  stroke-width: 2;
+}
+
+.md-typeset .ew-widget[data-widget="threshold"] .ew-th-sliderfield input[type="range"] {
+  width: 100%;
+  accent-color: var(--md-accent-fg-color);
+}
